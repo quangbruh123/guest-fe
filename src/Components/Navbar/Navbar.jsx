@@ -1,11 +1,11 @@
-import React from 'react';
+//import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import './Navbar.css';
 
 const Navbar = () => {
-  const pending = '';
-  const active = '';
+  //const pending = '';
+  //const active = '';
 
   return (
     <div className='block fixed top-0 right-0 left-0 bg-white w-full max-w-full'>

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import JobItem from "./JobItem";
 
 import Navbar from "../../../Components/Navbar/Navbar";
+import Footer from "../../../Components/footer";
 
 const Homepage = () => {
   return (
@@ -38,8 +39,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/* footer */}
-      <div></div>
+      <Footer></Footer>
     </div>
   );
 };

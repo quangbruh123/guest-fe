@@ -1,9 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [],
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"], //'Roboto', sans-serif;
+    },
+    extend: {
+      width: {
+        main: "1220px",
+      },
+      colors: {
+        "blue-dam": "#003863",
+      },
+    },
   },
-  plugins: [],
-}
-
+  plugins: ["prettier-plugin-foo"],
+};
