@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    fontFamily: {
+      roboto: ['Roboto', 'sans-serif'], //'Roboto', sans-serif;
+    },
+    extend: {
+      width: {
+        main: '1220px',
+      },
+    },
   },
-  plugins: [],
-}
-
+  plugins: ['prettier-plugin-foo'],
+};
