@@ -1,18 +1,19 @@
-import { Navigate } from 'react-router-dom';
-import App from '../App';
-import Homepage from '../pages/public/Homepage/Homepage';
+import { Navigate } from "react-router-dom";
+import App from "../App";
+import Homepage from "../pages/public/Homepage/Homepage";
 
 export const routes = [
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
         index: true,
-        element: <Navigate to='/homepage' replace />,
+        element: <Navigate to="/homepage" replace />,
       },
       {
-        path: 'homepage',
+        path: "homepage",
+        name: "Homepage",
         element: <Homepage></Homepage>,
         children: [{}],
       },
