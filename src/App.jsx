@@ -11,8 +11,8 @@ function App() {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="h-[72px]"></div>
-      <div className="mt-12">
+      <div className="h-fit"></div>
+      <div className="">
         <Outlet></Outlet>
       </div>
     </div>

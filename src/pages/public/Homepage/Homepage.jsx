@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import JobItem from "./JobItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faList,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
+import JobItem from "./JobItem";
 import Navbar from "../../../Components/Navbar/Navbar";
 import Footer from "../../../Components/footer";
 
@@ -44,6 +50,41 @@ const Homepage = () => {
 
       {/* body */}
       <div className="h-fit">
+        <div className="mx-auto flex justify-between bg-white py-6">
+          <div className="mx-auto flex w-[60rem] justify-between">
+            <div className="flex w-[80%] space-x-2">
+              <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+                <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+                <input
+                  type="text"
+                  placeholder="Nhập tên công việc"
+                  className="outline-none"
+                ></input>
+              </div>
+              <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+                <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+                <select
+                  placeholder="Chọn ngành nghề"
+                  className="flex h-full w-full cursor-pointer items-center outline-none"
+                >
+                  <option>Chọn ngành nghề</option>
+                </select>
+              </div>
+              <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+                <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+                <select
+                  placeholder="Chọn địa điểm"
+                  className="flex h-full w-full cursor-pointer items-center outline-none"
+                >
+                  <option>Chọn địa điểm</option>
+                </select>
+              </div>
+            </div>
+            <div className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]">
+              <button>Tìm ngay</button>
+            </div>
+          </div>
+        </div>
         <div className="mx-auto mt-6 h-[1000px] w-[85rem]">
           <h2 className="mb-8 text-2xl leading-7">CÔNG VIỆC MỚI NỔI BẬT</h2>
           <div className="ml-[-15px] mr-[-15px] w-[100%]"></div>
