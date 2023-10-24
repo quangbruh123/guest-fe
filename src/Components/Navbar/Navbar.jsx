@@ -8,7 +8,7 @@ const Navbar = () => {
   //const active = '';
 
   return (
-    <div className="fixed left-0 right-0 top-0 z-50 block w-full max-w-full bg-white">
+    <div className="navbar fixed left-0 right-0 top-0 z-50 block w-full max-w-full bg-white">
       <div className="flex flex-row justify-between shadow-md">
         <div className="flex items-center pl-4">
           <div className="flex h-14 w-14 items-center justify-center">
