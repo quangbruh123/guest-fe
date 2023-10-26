@@ -18,13 +18,13 @@ const Navbar = () => {
               className="h-[70%] w-[70%] object-contain"
             />
           </div>
-          <NavLink>Tất cả việc làm</NavLink>
+          <NavLink className="box">Tất cả việc làm</NavLink>
           <NavLink>Nhà tuyển dụng</NavLink>
           <NavLink>Giới thiệu</NavLink>
         </div>
         <div className="flex">
           <NavLink>Đăng ký</NavLink>
-          <NavLink className="bg-blue-700 font-medium text-white hover:bg-none">
+          <NavLink className="bg-blue-700 font-medium text-white hover:bg-blue-600 hover:text-white hover:shadow-none">
             Đăng nhập
           </NavLink>
         </div>
