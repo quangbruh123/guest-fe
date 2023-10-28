@@ -1,28 +1,36 @@
-import { Navigate } from "react-router-dom";
-import App from "../App";
-import Homepage from "../pages/public/Homepage/Homepage";
-import News from "../pages/public/News";
+import React from "react";
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 
-export const routes = [
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        index: true,
-        element: <Navigate to="/homepage" replace />,
-      },
-      {
-        path: "homepage",
-        name: "Homepage",
-        element: <Homepage></Homepage>,
-        children: [{}],
-      },
-      {
-        path: "news",
-        name: "Tin tức",
-        element: <News></News>,
-      },
-    ],
-  },
-];
+import Homepage from "../pages/public/Homepage/Homepage";
+
+const NewsLazy = React.lazy(() => import("../pages/public/News"));
+
+import PublicLayout from "../layouts/publicLayout";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<PublicLayout />}>
+      <Route index element={<Homepage />}></Route>
+      <Route
+        path="news"
+        element={
+          <React.Suspense
+            fallback={
+              <div>
+                <h1>Loading...</h1>
+              </div>
+            }
+          >
+            <NewsLazy />
+          </React.Suspense>
+        }
+      ></Route>
+    </Route>,
+  ),
+);
+
+export default router;

@@ -15,7 +15,7 @@ import Footer from "../../../Components/footer";
 
 const Homepage = () => {
   return (
-    <div className="h-screen w-screen overflow-y-scroll bg-slate-100">
+    <div className=" bg-slate-100">
       {/* <img
         src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/banner-top.jpg"
         alt=""
@@ -25,7 +25,7 @@ const Homepage = () => {
           Đăng ký công việc yêu thích của bạn ngay tại đây
         </div>
       </img> */}
-      <div className="relative flex h-[700px] w-screen">
+      <div className="relative flex h-[700px]">
         <div className="absolute z-20 flex h-full w-[50%] flex-col justify-center bg-gradient-to-r from-black to-transparent">
           <div className="pl-8">
             <div className="my-6 text-4xl font-semibold text-white">
@@ -205,8 +205,6 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-
-      <Footer></Footer>
     </div>
   );
 };

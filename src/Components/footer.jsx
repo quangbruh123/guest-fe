@@ -46,7 +46,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-5 flex items-center justify-center border-t-2 border-white py-4">
+        <div className="mt-5 flex items-center justify-center border-t-[1px] border-white py-4">
           <div className="w-fit text-center">
             <p>Copyright © 2017 Sieuthivieclam. All rights reserved</p>
             <p>Hello</p>
