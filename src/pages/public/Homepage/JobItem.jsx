@@ -1,22 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-const JobItem = ({ jobName, jobCount, jobImg }) => {
+const JobItem = ({ jobName, companyName }) => {
   return (
-    <div className="float-left mb-5 w-[25%] overflow-hidden px-3">
-      <div className="w-full">
-        <img
-          src="https://sieuthivieclam.vn/images/category/cokhi.jpg"
-          alt="Cơ khí - Kỹ thuật ứng dụng - Tự động hóa"
-          className="w-[100%]"
-        />
+    <div className="col-span-6 cursor-pointer bg-white px-4 hover:bg-blue-200">
+      <div className="flex items-center py-4">
+        <div className="flex h-full w-[80%] flex-col space-y-2">
+          <span className="w-[90%] overflow-hidden text-2xl font-medium">
+            Senior Frontend Developer
+          </span>
+          <span className="text-gray-400">TMA Solutions</span>
+          <span>Lương: 20.000.000VND - 40.000.000VND</span>
+        </div>
       </div>
-      <span className="block w-full bg-white px-2 py-4 text-center">
-        <span className="overflow-hidden">{jobName}</span>
-        <br></br>
-        <span>( {jobCount} công việc )</span>
-      </span>
-      <div></div>
     </div>
   );
 };

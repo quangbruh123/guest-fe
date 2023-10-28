@@ -1,13 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faList,
   faLocationDot,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 import JobItem from "./JobItem";
+import JobCategories from "./JobCategories";
 import Navbar from "../../../Components/Navbar/Navbar";
 import Footer from "../../../Components/footer";
 
@@ -52,7 +54,7 @@ const Homepage = () => {
       <div className="h-fit">
         <div className="mx-auto flex justify-between bg-white py-6">
           <div className="mx-auto flex w-[60rem] justify-between">
-            <div className="flex w-[80%] space-x-2">
+            <div className="flex w-[85%] space-x-2">
               <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
                 <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
                 <input
@@ -85,61 +87,121 @@ const Homepage = () => {
             </div>
           </div>
         </div>
+
         <div className="mx-auto mt-6 h-[1000px] w-[85rem]">
-          <h2 className="mb-8 text-2xl leading-7">CÔNG VIỆC MỚI NỔI BẬT</h2>
-          <div className="ml-[-15px] mr-[-15px] w-[100%]"></div>
+          <div className="ml-[-15px] mr-[-15px] w-[100%]">
+            <div className="flex">
+              <div className="w-[70%] pr-2">
+                <div className="flex  justify-start">
+                  <div className="h-fit cursor-pointer bg-slate-200 px-6 py-3 font-medium text-gray-400 hover:bg-blue-600 hover:text-white">
+                    Công việc mới, nổi bật
+                  </div>
+                  <div className="h-fit cursor-pointer bg-slate-200 px-6 py-3 font-medium text-gray-400 hover:bg-blue-600 hover:text-white">
+                    Công việc lương cao
+                  </div>
+                </div>
+                <div className="flex flex-col bg-white">
+                  <div className=" mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                    <JobItem></JobItem>
+                  </div>
+                  <div className="my-4 ml-4 text-red-600">
+                    <Link className="">Xem tất cả việc làm &gt;&gt;</Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-[30%]">
+                <div className="border-[1px] border-gray-300 bg-white">
+                  <h2 className="border-b-[1px] border-gray-300 px-7 py-6 text-xl font-bold">
+                    DANH MỤC
+                  </h2>
+                  <div></div>
+                  <div className="px-7">
+                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <span>TẤT CẢ VIỆC LÀM</span>
+                      <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                    </div>
+                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <span>NHÀ TUYỂN DỤNG</span>
+                      <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                    </div>
+                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <span>GIỚI THIỆU</span>
+                      <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                    </div>
+                    <div className="flex items-center justify-between py-6">
+                      <span>TIN TỨC - SỰ KIỆN</span>
+                      <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div className="mx-auto mt-3 h-[1000px] w-[85rem]">
           <h2 className="mb-8 text-2xl leading-7">VIỆC THEO NGÀNH NGHỀ</h2>
           <div className="ml-[-15px] mr-[-15px] w-[100%]">
-            <JobItem
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
-            <JobItem
+            ></JobCategories>
+            <JobCategories
               jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
               jobCount="555"
-            ></JobItem>
+            ></JobCategories>
           </div>
         </div>
       </div>
