@@ -21,6 +21,7 @@ const Navbar = () => {
           <NavLink className="box">Tất cả việc làm</NavLink>
           <NavLink>Nhà tuyển dụng</NavLink>
           <NavLink>Giới thiệu</NavLink>
+          <NavLink to="/news">Tin tức</NavLink>
         </div>
         <div className="flex">
           <NavLink>Đăng ký</NavLink>
