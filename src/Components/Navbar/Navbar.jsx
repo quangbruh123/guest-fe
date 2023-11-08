@@ -8,8 +8,8 @@ const Navbar = () => {
   //const active = '';
 
   return (
-    <div className="navbar fixed left-0 right-0 top-0 z-50 block w-full max-w-full bg-white">
-      <div className="flex flex-row justify-between shadow-md">
+    <div className="navbar fixed left-0 right-0 top-0 z-50 block h-[72px] w-full max-w-full bg-white">
+      <div className="flex h-full flex-row justify-between shadow-md">
         <div className="flex items-center pl-4">
           <div className="flex h-14 w-14 items-center justify-center">
             <img
@@ -21,7 +21,7 @@ const Navbar = () => {
           <NavLink className="box" to="/jobs">
             Tất cả việc làm
           </NavLink>
-          <NavLink>Nhà tuyển dụng</NavLink>
+          <NavLink to={"/cong-ty"}>Nhà tuyển dụng</NavLink>
           <NavLink>Giới thiệu</NavLink>
           <NavLink to="/news">Tin tức</NavLink>
         </div>
