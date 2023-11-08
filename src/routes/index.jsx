@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Homepage from "../pages/public/Homepage/Homepage";
+import Jobpage from "../pages/public/Jobpage/Jobpage";
 
 const NewsLazy = React.lazy(() => import("../pages/public/News"));
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
           </React.Suspense>
         }
       ></Route>
+      <Route path="jobs" element={<Jobpage></Jobpage>}></Route>
     </Route>,
   ),
 );
