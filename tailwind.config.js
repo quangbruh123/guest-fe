@@ -12,6 +12,7 @@ export default {
       colors: {
         "blue-dam": "#003863",
         "text-hoi-black": "#4A4A4A",
+        "bg-xam-nhat": "#F3F5F7",
       },
     },
   },

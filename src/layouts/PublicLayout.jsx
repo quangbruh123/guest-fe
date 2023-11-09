@@ -8,7 +8,7 @@ function PublicLayout() {
     <div>
       <Navbar></Navbar>
       <div className="h-[72px]"></div>
-      <div className="mt-12 min-h-screen">
+      <div className="bg-bg-xam-nhat mt-12 min-h-screen">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
