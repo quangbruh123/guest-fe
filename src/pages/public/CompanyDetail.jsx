@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import JobItem from "../../Components/Company/JobItem";
 
 const CompanyDetail = () => {
   return (
@@ -87,7 +88,7 @@ const CompanyDetail = () => {
               <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#1c4742] to-[#22c96d] px-5 py-3 text-lg font-semibold text-white">
                 Tuyển dụng
               </h2>
-              <div className="box-body mb-11 rounded-b-[10px] border border-[#e9eaec] bg-white px-5 py-8 ">
+              <div className="box-body mb-11 rounded-b-[10px] border border-[#e9eaec] bg-white px-5 py-8">
                 <div className="mb-4 grid grid-cols-12 gap-2">
                   <div className="col-span-8 flex items-center gap-4 rounded-[6px] border py-1 pl-3 pr-0">
                     <div>
@@ -104,10 +105,23 @@ const CompanyDetail = () => {
                       <i className="fa-solid fa-magnifying-glass"></i>
                       Tìm kiếm
                     </button>
-                    <div className="job-list">
-                      <div className="mb-4 flex gap-4 rounded border border-[#f4f4f4] bg-white p-4"></div>
-                    </div>
                   </div>
+                </div>
+                <div className="job-list">
+                  <JobItem />
+                  <JobItem />
+                  <JobItem />
+                </div>
+                <div className="mt-5 flex justify-center gap-6">
+                  <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
+                    <i className="fa-solid fa-chevron-left"></i>
+                  </button>
+
+                  <span className="text-xl text-[#ccc]">1/3 trang</span>
+
+                  <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
+                    <i className="fa-solid fa-chevron-right"></i>
+                  </button>
                 </div>
               </div>
             </div>
