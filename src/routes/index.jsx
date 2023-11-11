@@ -6,11 +6,13 @@ import {
 } from "react-router-dom";
 
 import Homepage from "../pages/public/Homepage/Homepage";
+import Jobpage from "../pages/public/Jobpage/Jobpage";
 import News from "../pages/public/News";
 import Companies from "../pages/public/Companies";
 import CompanyDetail from "../pages/public/CompanyDetail";
 
 import PublicLayout from "../layouts/publicLayout";
+import JobDetail from "../pages/public/Jobpage/JobDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +21,9 @@ const router = createBrowserRouter(
       <Route path="news" element={<News />}></Route>
       <Route path="cong-ty" element={<Companies />}></Route>
       <Route path="cong-ty/:cid" element={<CompanyDetail />}></Route>
+      <Route path="jobs" element={<Jobpage></Jobpage>}></Route>
+      <Route path="jobs/detail/" element={<JobDetail></JobDetail>}></Route>
+      <Route path="jobs/detail/:id" element={<JobDetail></JobDetail>}></Route>
     </Route>,
   ),
 );

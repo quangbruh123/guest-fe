@@ -94,7 +94,7 @@ const Homepage = () => {
                   </div>
                 </div>
                 <div className="flex flex-col bg-white">
-                  <div className=" mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
+                  <div className="mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
                     <JobItem></JobItem>
                     <JobItem></JobItem>
                     <JobItem></JobItem>
