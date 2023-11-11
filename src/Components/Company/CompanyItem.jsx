@@ -9,7 +9,7 @@ const CompanyItem = ({ company, className }) => {
       }
     >
       <div className="banner relative mb-4 h-[180px] overflow-hidden">
-        <NavLink>
+        <NavLink to={"/cong-ty/123"}>
           <div className="wrapper h-[150px]">
             <img
               src="https://static.topcv.vn/company_covers/cong-ty-co-phan-nguoi-ban-vang-9167318c1370716a55560d6f43a79325-64058f6d095a9.jpg"
@@ -19,7 +19,7 @@ const CompanyItem = ({ company, className }) => {
           </div>
         </NavLink>
         <div className="company-logo absolute bottom-0 left-[16px] h-[64px] w-[64px] border border-[#eee] bg-white">
-          <NavLink>
+          <NavLink to={"/cong-ty/123"}>
             <img
               src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/avatar.jpg"
               alt="logo"
@@ -32,6 +32,7 @@ const CompanyItem = ({ company, className }) => {
       <div className="info px-4">
         <h3>
           <NavLink
+            to={"/cong-ty/123"}
             className={"text-left text-sm font-bold uppercase text-[#333]"}
           >
             Test

@@ -8,7 +8,8 @@ function PublicLayout() {
     <div>
       <Navbar></Navbar>
       <div className="h-[72px]"></div>
-      <div className="min-h-screen bg-slate-100 pt-12">
+      <div className="bg-bg-xam-nhat mt-12 min-h-screen">
+
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
