@@ -126,7 +126,24 @@ const CompanyDetail = () => {
               </div>
             </div>
           </div>
-          <div className="right col-span-4"></div>
+          <div className="right col-span-4">
+            <div className="mb-8 overflow-hidden">
+              <h2 className="m-0 rounded-t-md bg-gradient-to-r from-[#1c4742] to-[#22c96d] px-5 py-3 text-lg font-semibold text-white">
+                Giới thiệu công ty
+              </h2>
+              <div className="box-body rounded-b-md border border-[#e9eaec] px-5 pb-2">
+                <div className="py-5">
+                  <div className="mb-2 flex items-center">
+                    <i className="fa-solid fa-location-dot mr-2 text-2xl"></i>
+                    <span className="text-sm text-black">Địa chỉ công ty</span>
+                  </div>
+                  <div className="text-sm font-normal text-[#4d5965]">
+                    Địa chỉ
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
