@@ -36,7 +36,7 @@ const CompanyDetail = () => {
                     like Aldus PageMaker including versions of Lorem Ipsum.`;
   return (
     <div className="m-auto w-main">
-      <div className="cover-inner mb-6 min-h-[358px] rounded-xl bg-gradient-to-r from-[#212f3f] to-[#00b14f]">
+      <div className="cover-inner mb-6 min-h-[358px] rounded-xl bg-gradient-to-r from-[#212f3f] to-blue-700">
         <div className="cover-wrapper h-[224px] overflow-hidden">
           <img
             src="https://static.topcv.vn/company_covers/BL6ef3SJULpJu4nT7R66.jpg"
@@ -90,7 +90,7 @@ const CompanyDetail = () => {
         <div className="grid grid-cols-12 gap-x-8">
           <div className="left col-span-8">
             <div className="introduce mb-8 overflow-hidden rounded-xl bg-white">
-              <h2 className="m-0 bg-gradient-to-r from-[#1c4742] to-[#22c96d] px-5 py-3 text-lg font-semibold text-white">
+              <h2 className="m-0 bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
                 Giới thiệu công ty
               </h2>
               <div className="box-body px-5 pb-7 pt-5">
@@ -99,12 +99,12 @@ const CompanyDetail = () => {
             </div>
 
             <div className="job-listing">
-              <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#1c4742] to-[#22c96d] px-5 py-3 text-lg font-semibold text-white">
+              <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
                 Tuyển dụng
               </h2>
               <div className="box-body mb-11 rounded-b-[10px] border border-[#e9eaec] bg-white px-5 py-8">
                 <div className="mb-4 grid grid-cols-12 gap-2">
-                  <div className="col-span-8 flex items-center gap-4 rounded-[6px] border py-1 pl-3 pr-0">
+                  <div className="col-span-10 flex items-center gap-4 rounded-[6px] border py-1 pl-3 pr-0">
                     <div>
                       <i className="fa-solid fa-magnifying-glass"></i>
                     </div>
@@ -114,8 +114,8 @@ const CompanyDetail = () => {
                       className="flex-1 border-none outline-none"
                     />
                   </div>
-                  <div className="col-span-4 ">
-                    <button className="flex items-center gap-3 rounded-lg bg-[#00b14f] px-3 py-4 text-base font-normal text-white">
+                  <div className="col-span-2">
+                    <button className="flex items-center gap-3 rounded-lg bg-blue-700 px-3 py-4 text-base font-normal text-white">
                       <i className="fa-solid fa-magnifying-glass"></i>
                       Tìm kiếm
                     </button>
@@ -142,7 +142,7 @@ const CompanyDetail = () => {
           </div>
           <div className="right col-span-4">
             <div className="mb-8 overflow-hidden">
-              <h2 className="m-0 rounded-t-md bg-gradient-to-r from-[#1c4742] to-[#22c96d] px-5 py-3 text-lg font-semibold text-white">
+              <h2 className="m-0 rounded-t-md bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
                 Giới thiệu công ty
               </h2>
               <div className="box-body rounded-b-md border border-[#e9eaec] px-5 pb-2">

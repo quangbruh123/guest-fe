@@ -3,7 +3,7 @@ import CompanyItem from "../../Components/Company/CompanyItem";
 const Companies = () => {
   return (
     <div className="-mt-12">
-      <div className="min-h-[273px] bg-gradient-to-tr from-[#fff] to-[#c4ffdd] pt-6">
+      <div className="min-h-[273px] bg-gradient-to-tr from-[#fff] to-[rgb(196,233,255)] pt-6">
         <div className="m-auto flex w-main px-2">
           <div className="left">
             <ul className="m-0 flex list-none flex-wrap p-0 pb-8">
@@ -18,7 +18,7 @@ const Companies = () => {
               </li>
             </ul>
             <div className="mb-9">
-              <h1 className="pb-3 text-left text-2xl font-medium tracking-normal text-blue-dam">
+              <h1 className="pb-3 text-left text-2xl font-medium tracking-normal text-blue-800">
                 Khám phá các công ty nổi bật
               </h1>
               <p className="text-base">
@@ -34,7 +34,7 @@ const Companies = () => {
                 className="h-full w-full border-transparent pl-16 text-base text-[#212529] outline-none"
                 placeholder="Nhập tên công ty"
               />
-              <button className=" absolute right-[7px] top-2/4 -translate-y-2/4 rounded-[100px] bg-blue-dam px-2 py-1 text-base text-white">
+              <button className=" absolute right-[7px] top-2/4 -translate-y-2/4 rounded-[100px] bg-blue-700 px-3 py-1 text-base text-white">
                 Tìm kiếm
               </button>
             </div>
