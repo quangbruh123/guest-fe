@@ -18,7 +18,7 @@ const Jobpage = () => {
             <div className="flex w-[15rem] items-center pr-4">
               <span className="text-2xl font-medium">Tìm việc nhanh</span>
             </div>
-            <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+            <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
               <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
               <input
                 type="text"
@@ -26,7 +26,7 @@ const Jobpage = () => {
                 className="outline-none"
               ></input>
             </div>
-            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
               <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
               <select
                 placeholder="Chọn ngành nghề"
@@ -35,7 +35,7 @@ const Jobpage = () => {
                 <option>Chọn ngành nghề</option>
               </select>
             </div>
-            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
+            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
               <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
               <select
                 placeholder="Chọn địa điểm"
@@ -52,7 +52,7 @@ const Jobpage = () => {
 
         <div className="mx-auto flex space-x-2">
           <div className="w-[70%] pr-2">
-            <div className="flex items-center justify-between border-[1px] border-slate-300 p-4">
+            <div className="flex items-center justify-between border-[1px] border-slate-300 bg-white p-4">
               <span>Bind số lượng tại đây</span>
               <div className="flex items-center">
                 <span className="mr-2 text-slate-500">Sắp xếp theo:</span>
