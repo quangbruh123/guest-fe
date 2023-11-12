@@ -25,7 +25,10 @@ const Navbar = () => {
         </div>
         <div className="flex">
           <NavLink>Đăng ký</NavLink>
-          <NavLink className="bg-blue-700 font-medium text-white hover:bg-blue-600 hover:!text-white hover:!shadow-none">
+          <NavLink
+            className="bg-blue-700 font-medium text-white hover:bg-blue-600 hover:!text-white hover:!shadow-none"
+            to="/login"
+          >
             Đăng nhập
           </NavLink>
         </div>
