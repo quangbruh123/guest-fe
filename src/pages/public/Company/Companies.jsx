@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import CompanyItem from "../../Components/Company/CompanyItem";
+import CompanyItem from "../../../Components/Company/CompanyItem";
 const Companies = () => {
   return (
     <div className="-mt-12">

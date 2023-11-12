@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import JobItem from "../../Components/Company/JobItem";
+import JobItem from "../../../Components/Company/JobItem";
 import { useEffect, useRef } from "react";
-import CompanyParagraph from "../../Components/Company/CompanyParagraph";
+import CompanyParagraph from "../../../Components/Company/CompanyParagraph";
 
 const CompanyDetail = () => {
   const paragraph = `Lorem Ipsum is simply dummy text of the printing and
