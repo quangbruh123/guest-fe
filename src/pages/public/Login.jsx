@@ -9,7 +9,7 @@ const Login = () => {
         <div className="mx-auto w-[60%]">
           <div className="mb-5">
             <h2 className="mb-1 text-[22px] font-semibold text-blue-600">
-              Chào mừng bạn
+              Chào mừng bạn quay trở lại
             </h2>
             <span className="text-[#6F7882]">
               Cùng nhau xây dựng tương lai việc làm ngay tại Trung tâm giới
@@ -61,7 +61,10 @@ const Login = () => {
           </div>
           <div className="mb-5 flex w-[100%] items-center justify-center space-x-1 text-[#6F7882]">
             <span>Bạn chưa có tài khoản?</span>
-            <Link className="font-[450] text-blue-600 hover:underline">
+            <Link
+              className="font-[450] text-blue-600 hover:underline"
+              to="/signup"
+            >
               Đăng ký ngay
             </Link>
           </div>

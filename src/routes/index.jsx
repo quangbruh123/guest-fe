@@ -14,10 +14,12 @@ import CompanyDetail from "../pages/public/Company/CompanyDetail";
 import PublicLayout from "../layouts/publicLayout";
 import JobDetail from "../pages/public/Jobpage/JobDetail";
 import Login from "../pages/public/Login";
+import SignUp from "../pages/public/SignUp";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      <Route path="/signup" element={<SignUp></SignUp>}></Route>
       <Route path="/login" element={<Login></Login>}></Route>
       <Route path="/" element={<PublicLayout />}>
         <Route index element={<Homepage />}></Route>
