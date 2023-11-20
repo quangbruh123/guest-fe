@@ -39,7 +39,10 @@ const Login = () => {
             </div>
           </div>
           <div className="mb-5 flex w-[100%] justify-end">
-            <NavLink className="font-[450] text-blue-600 hover:underline">
+            <NavLink
+              className="font-[450] text-blue-600 hover:underline"
+              to="/quen-mat-khau"
+            >
               Quên mật khẩu
             </NavLink>
           </div>
@@ -63,7 +66,7 @@ const Login = () => {
             <span>Bạn chưa có tài khoản?</span>
             <Link
               className="font-[450] text-blue-600 hover:underline"
-              to="/signup"
+              to="/dang-ky"
             >
               Đăng ký ngay
             </Link>

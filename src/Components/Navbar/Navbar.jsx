@@ -24,10 +24,10 @@ const Navbar = () => {
           <NavLink to="/news">Tin tức</NavLink>
         </div>
         <div className="flex">
-          <NavLink>Đăng ký</NavLink>
+          <NavLink to="/dang-ky">Đăng ký</NavLink>
           <NavLink
             className="bg-blue-700 font-medium text-white hover:bg-blue-600 hover:!text-white hover:!shadow-none"
-            to="/login"
+            to="/dang-nhap"
           >
             Đăng nhập
           </NavLink>

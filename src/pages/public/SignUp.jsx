@@ -80,7 +80,7 @@ const SignUp = () => {
             <span>Bạn đã có tài khoản?</span>
             <Link
               className="font-[450] text-blue-600 hover:underline"
-              to="/login"
+              to="/dang-nhap"
             >
               Đăng nhập ngay
             </Link>
