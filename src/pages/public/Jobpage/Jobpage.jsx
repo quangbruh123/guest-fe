@@ -1,11 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-  faList,
-  faLocationDot,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 
 import JobItem from "../../../Components/JobItem";
 
@@ -19,7 +12,7 @@ const Jobpage = () => {
               <span className="text-2xl font-medium">Tìm việc nhanh</span>
             </div>
             <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+              <i class="fa-solid fa-magnifying-glass"></i>
               <input
                 type="text"
                 placeholder="Nhập tên công việc"
@@ -27,7 +20,7 @@ const Jobpage = () => {
               ></input>
             </div>
             <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <FontAwesomeIcon icon={faList}></FontAwesomeIcon>
+              <i class="fa-solid fa-list"></i>
               <select
                 placeholder="Chọn ngành nghề"
                 className="flex h-full w-full cursor-pointer items-center outline-none"
@@ -36,7 +29,7 @@ const Jobpage = () => {
               </select>
             </div>
             <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>
+              <i class="fa-solid fa-location-dot"></i>
               <select
                 placeholder="Chọn địa điểm"
                 className="flex h-full w-full cursor-pointer items-center outline-none"
@@ -87,23 +80,23 @@ const Jobpage = () => {
               <div className="px-7">
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>NGÀNH NGHỀ</span>
-                  <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                  <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>ĐỊA ĐIỂM</span>
-                  <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                  <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>MỨC LƯƠNG</span>
-                  <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                  <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>TRÌNH ĐỘ</span>
-                  <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                  <i class="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between py-4">
                   <span>HÌNH THỨC LÀM VIỆC</span>
-                  <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                  <i class="fa-solid fa-chevron-right"></i>
                 </div>
               </div>
             </div>

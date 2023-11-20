@@ -1,6 +1,13 @@
 import { NavLink } from "react-router-dom";
+import { useDebugValue, useEffect } from "react";
+
+import { companyAPI } from "../../../apis";
 import CompanyItem from "../../../Components/Company/CompanyItem";
+
 const Companies = () => {
+  useEffect(() => {
+    const response = new Promise((resolve, reject) => {});
+  }, []);
   return (
     <div className="-mt-12">
       <div className="min-h-[273px] bg-gradient-to-tr from-[#fff] to-[rgb(196,233,255)] pt-6">

@@ -1,7 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 const JobItem = () => {
@@ -24,17 +21,11 @@ const JobItem = () => {
         <div className="flex items-center justify-between">
           <span className="text-slate-500">Lương: 8.000.000</span>
           <div className="flex items-center space-x-2">
-            <FontAwesomeIcon
-              icon={faLocationDot}
-              className="text-slate-500"
-            ></FontAwesomeIcon>
+            <i class="fa-solid fa-location-dot text-gray-500"></i>
             <span className="text-slate-500">Hồ Chí Minh</span>
           </div>
           <div className="flex items-center space-x-2">
-            <FontAwesomeIcon
-              icon={faClock}
-              className="text-slate-500"
-            ></FontAwesomeIcon>
+            <i class="fa-solid fa-clock text-gray-500"></i>
             <span className="text-slate-500">Hạn nộp: 30/11/2023</span>
           </div>
         </div>

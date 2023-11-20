@@ -1,6 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import JobDetailItem from "./JobDetailItem";
 
 const JobDetail = ({}) => {
@@ -22,7 +20,7 @@ const JobDetail = ({}) => {
                   <span>Bind ngày cập nhật</span>
                 </span>
                 <button className="flex items-center space-x-1 rounded-md bg-blue-700 p-4 font-medium text-white">
-                  <FontAwesomeIcon icon={faPaperPlane}></FontAwesomeIcon>
+                  <i class="fa-solid fa-paper-plane"></i>
                   <span>Nộp đơn ứng tuyển</span>
                 </button>
               </div>
