@@ -11,7 +11,7 @@ import News from "../pages/public/News";
 import Companies from "../pages/public/Company/Companies";
 import CompanyDetail from "../pages/public/Company/CompanyDetail";
 
-import PublicLayout from "../layouts/publicLayout";
+import PublicLayout from "../layouts/PublicLayout";
 import JobDetail from "../pages/public/Jobpage/JobDetail";
 import Login from "../pages/public/Login";
 import SignUp from "../pages/public/SignUp";

@@ -20,7 +20,7 @@ const SignUp = () => {
           <div className="mb-5 w-[100%] space-y-2">
             <label className="">Họ và tên</label>
             <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-              <i class="fa-solid fa-user p-4 text-blue-700"></i>
+              <i className="fa-solid fa-user p-4 text-blue-700"></i>
               <input
                 className="h-full flex-auto focus:outline-none"
                 placeholder="Nhập họ tên"
@@ -30,7 +30,7 @@ const SignUp = () => {
           <div className="mb-5 w-[100%] space-y-2">
             <label className="">Email</label>
             <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-              <i class="fa-solid fa-envelope p-4 text-blue-700"></i>
+              <i className="fa-solid fa-envelope p-4 text-blue-700"></i>
               <input
                 className="h-full flex-auto focus:outline-none"
                 placeholder="Nhập email"
@@ -40,7 +40,7 @@ const SignUp = () => {
           <div className="mb-5 w-[100%] space-y-2">
             <label className="">Mật khẩu</label>
             <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-              <i class="fa-solid fa-lock p-4 text-blue-700"></i>
+              <i className="fa-solid fa-lock p-4 text-blue-700"></i>
               <input
                 className="h-full flex-auto pr-2 focus:outline-none"
                 placeholder="Nhập mật khẩu"
@@ -51,7 +51,7 @@ const SignUp = () => {
           <div className="mb-7 w-[100%] space-y-2">
             <label className="">Xác nhận mật khẩu</label>
             <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-              <i class="fa-solid fa-lock p-4 text-blue-700"></i>
+              <i className="fa-solid fa-lock p-4 text-blue-700"></i>
               <input
                 className="h-full flex-auto pr-2 focus:outline-none"
                 placeholder="Nhập mật khẩu"
