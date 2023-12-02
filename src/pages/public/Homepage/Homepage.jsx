@@ -12,7 +12,7 @@ const Homepage = () => {
     "http://localhost:5000/api/v1/post/filter",
   );
 
-  const { careers } = useSelector(getStaticData);
+  const staticData = useSelector(getStaticData);
 
   return (
     <div className=" bg-slate-100">
@@ -153,7 +153,7 @@ const Homepage = () => {
         <div className="mx-auto mt-3 w-[85rem]">
           <h2 className="mb-8 text-2xl leading-7">VIỆC THEO NGÀNH NGHỀ</h2>
           <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
-            {careers.map((el) => {
+            {staticData?.careers?.map((el) => {
               return (
                 <JobCategories
                   key={el.id}
