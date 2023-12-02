@@ -4,7 +4,7 @@ export const apiGetWorkingTypes = async () => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: "/api/v1/working-type/all",
+      url: "/working-type",
     });
     return response;
   } catch (error) {

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-
+import PropTypes from "prop-types";
 const CompanyParagraph = ({ paragraph }) => {
   const contentDiv = useRef(null);
   const overflow = useRef(false);
   const [expand, setExpand] = useState(null);
   useEffect(() => {
-    if (contentDiv.current.clientHeight >= 250) {
+    if (contentDiv.current.clientHeight >= 200) {
       overflow.current = true;
     }
   }, []);
@@ -38,4 +38,7 @@ const CompanyParagraph = ({ paragraph }) => {
   );
 };
 
+CompanyParagraph.propTypes = {
+  paragraph: PropTypes.string,
+};
 export default CompanyParagraph;

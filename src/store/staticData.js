@@ -18,11 +18,11 @@ export const fetchData = createAsyncThunk(
       const cRes = await careerAPI.apiGetCareers();
 
       const returnResponse = {
-        careers: cRes.data.res,
-        districts: dRes.data.res,
-        academicLevels: aRes.data.res,
-        positions: pRes.data.res,
-        workingTypes: wtRes.data.res,
+        careers: cRes.data,
+        districts: dRes,
+        academicLevels: aRes.data,
+        positions: pRes.data,
+        workingTypes: wtRes.data,
       };
       return returnResponse;
     } catch (error) {

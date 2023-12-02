@@ -4,7 +4,7 @@ export const apiGetAcademicLevels = async () => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: "/api/v1/academic-level/all",
+      url: "/academic-level/",
     });
     return response;
   } catch (error) {

@@ -8,7 +8,6 @@ import { fetchData, getStaticData } from "../store/staticData";
 
 function PublicLayout() {
   const dispatch = useDispatch();
-  const districts = useSelector(getStaticData);
   useEffect(() => {
     let ignore = false;
 
@@ -24,7 +23,6 @@ function PublicLayout() {
     };
   }, [dispatch]);
 
-  console.log(districts);
   return (
     <div>
       <Navbar></Navbar>

@@ -1,45 +1,34 @@
-import { NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import JobItem from "../../../Components/Company/JobItem";
-import { useEffect, useRef } from "react";
+
 import CompanyParagraph from "../../../Components/Company/CompanyParagraph";
+import useFetchData from "../../../utils/useFetchData";
 
 const CompanyDetail = () => {
-  const paragraph = `Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum. \n
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.\n
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.`;
+  const { cid } = useParams();
+
+  const { data, isLoading, isError } = useFetchData(
+    `http://localhost:5000/api/v1/company/${cid}`,
+    "object",
+  );
+  console.log(data);
+
+  let sizeOutput;
+  if (!data.companySizeMin && !data.companySizeMax) {
+    sizeOutput = "Thoả thuận";
+  } else if (!data.companySizeMax && data.companySizeMin) {
+    sizeOutput = `Từ ${data.companySizeMin} nhân viên`;
+  } else if (!data.companySizeMin && data.companySizeMax) {
+    sizeOutput = `Tối đa ${data.companySizeMax} nhân viên`;
+  } else {
+    sizeOutput = `Từ ${data.companySizeMin} đến ${data.companySizeMax} nhân viên`;
+  }
   return (
     <div className="m-auto w-main">
       <div className="cover-inner mb-6 min-h-[358px] rounded-xl bg-gradient-to-r from-[#212f3f] to-blue-700">
         <div className="cover-wrapper h-[224px] overflow-hidden">
           <img
-            src="https://static.topcv.vn/company_covers/BL6ef3SJULpJu4nT7R66.jpg"
+            src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/avatar.jpg"
             alt=""
             draggable="false"
             className="h-full w-full object-cover object-center"
@@ -48,28 +37,31 @@ const CompanyDetail = () => {
         <div className="logo relative">
           <div className="absolute -top-[90px] left-[40px] flex h-[180px] w-[180px] items-center justify-center rounded-[100px] border-4 border-white bg-white">
             <img
-              src=""
+              src={data.imageLink}
               alt="Ảnh công ty"
               draggable="false"
-              className="h-4/5 w-4/5 object-contain"
+              className="h-4/5 w-4/5 rounded-[100px] object-contain"
             />
           </div>
         </div>
         <div className="my-8 flex items-center gap-x-8 pl-[252px] pr-10">
           <div className="flex-1">
             <h1 className="mb-4 line-clamp-1 max-w-full overflow-hidden text-2xl font-semibold text-white">
-              Tên công ty
+              {data.companyName}
             </h1>
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex">
                 <i className="fa-solid fa-globe mr-2 text-[20px] text-white"></i>
-                <NavLink
+                <a
                   className={
                     "line-clamp-1 overflow-hidden text-sm font-normal text-white"
                   }
+                  target="_blank"
+                  href={`mailto:${data.email}`}
+                  rel="noreferrer"
                 >
-                  aaaa
-                </NavLink>
+                  {data.email}
+                </a>
               </div>
               <div className="flex">
                 <i className="fa-solid fa-building mr-2 text-[20px] text-white "></i>
@@ -78,7 +70,7 @@ const CompanyDetail = () => {
                     "line-clamp-1 overflow-hidden text-sm font-normal text-white"
                   }
                 >
-                  aaaa
+                  {sizeOutput}
                 </span>
               </div>
             </div>
@@ -94,50 +86,54 @@ const CompanyDetail = () => {
                 Giới thiệu công ty
               </h2>
               <div className="box-body px-5 pb-7 pt-5">
-                <CompanyParagraph paragraph={paragraph} />
+                <CompanyParagraph paragraph={data.introduction} />
               </div>
             </div>
 
             <div className="job-listing">
-              <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
-                Tuyển dụng
-              </h2>
-              <div className="box-body mb-11 rounded-b-[10px] border border-[#e9eaec] bg-white px-5 py-8">
-                <div className="mb-4 grid grid-cols-12 gap-2">
-                  <div className="col-span-10 flex items-center gap-4 rounded-[6px] border py-1 pl-3 pr-0">
-                    <div>
-                      <i className="fa-solid fa-magnifying-glass"></i>
+              {Array.isArray(data.Posts) && data.Posts?.length > 0 && (
+                <>
+                  <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
+                    Tuyển dụng
+                  </h2>
+                  <div className="box-body mb-11 rounded-b-[10px] border border-[#e9eaec] bg-white px-5 py-8">
+                    <div className="mb-4 grid grid-cols-12 gap-2">
+                      <div className="col-span-10 flex items-center gap-4 rounded-[6px] border py-1 pl-3 pr-0">
+                        <div>
+                          <i className="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Nhập tên công việc"
+                          className="flex-1 border-none outline-none"
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <button className="flex items-center gap-3 rounded-lg bg-blue-700 px-3 py-4 text-base font-normal text-white">
+                          <i className="fa-solid fa-magnifying-glass"></i>
+                          Tìm kiếm
+                        </button>
+                      </div>
                     </div>
-                    <input
-                      type="text"
-                      placeholder="Nhập tên công việc"
-                      className="flex-1 border-none outline-none"
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <button className="flex items-center gap-3 rounded-lg bg-blue-700 px-3 py-4 text-base font-normal text-white">
-                      <i className="fa-solid fa-magnifying-glass"></i>
-                      Tìm kiếm
-                    </button>
-                  </div>
-                </div>
-                <div className="job-list">
-                  <JobItem />
-                  <JobItem />
-                  <JobItem />
-                </div>
-                <div className="mt-5 flex justify-center gap-6">
-                  <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
-                    <i className="fa-solid fa-chevron-left"></i>
-                  </button>
+                    <div className="job-list">
+                      {data.Posts?.map((el) => {
+                        return <JobItem key={el.id} />;
+                      })}
+                    </div>
+                    <div className="mt-5 flex justify-center gap-6">
+                      <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
+                        <i className="fa-solid fa-chevron-left"></i>
+                      </button>
 
-                  <span className="text-xl text-[#ccc]">1/3 trang</span>
+                      <span className="text-xl text-[#ccc]">1/3 trang</span>
 
-                  <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
-                    <i className="fa-solid fa-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
+                      <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <div className="right col-span-4">
@@ -152,7 +148,7 @@ const CompanyDetail = () => {
                     <span className="text-sm text-black">Địa chỉ công ty</span>
                   </div>
                   <div className="text-sm font-normal text-[#4d5965]">
-                    Địa chỉ
+                    {data.address}
                   </div>
                 </div>
               </div>

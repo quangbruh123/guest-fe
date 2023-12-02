@@ -1,12 +1,19 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import JobItem from "./JobItem";
 import JobCategories from "./JobCategories";
-import Navbar from "../../../Components/Navbar/Navbar";
-import Footer from "../../../Components/footer";
+import { useEffect } from "react";
+import useFetchData from "../../../utils/useFetchData";
+import { useSelector } from "react-redux";
+import { getStaticData } from "../../../store/staticData";
 
 const Homepage = () => {
+  const { data, isLoading, error } = useFetchData(
+    "http://localhost:5000/api/v1/post/filter",
+  );
+
+  const { careers } = useSelector(getStaticData);
+
   return (
     <div className=" bg-slate-100">
       {/* <img
@@ -95,18 +102,17 @@ const Homepage = () => {
                 </div>
                 <div className="flex flex-col bg-white">
                   <div className="mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
-                    <JobItem></JobItem>
+                    {data.map((el) => {
+                      return (
+                        <JobItem
+                          key={el.id}
+                          jobName={el.jobTitle}
+                          companyName={el.Company.companyName}
+                          salaryMax={el.salaryMax}
+                          salaryMin={el.salaryMin}
+                        />
+                      );
+                    })}
                   </div>
                   <div className="my-4 ml-4 text-red-600">
                     <Link className="">Xem tất cả việc làm &gt;&gt;</Link>
@@ -144,57 +150,17 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-3 h-[1000px] w-[85rem]">
+        <div className="mx-auto mt-3 w-[85rem]">
           <h2 className="mb-8 text-2xl leading-7">VIỆC THEO NGÀNH NGHỀ</h2>
-          <div className="ml-[-15px] mr-[-15px] w-[100%]">
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
-            <JobCategories
-              jobName="Cơ khí - Kĩ thuật ứng dụng - Tự động hoá"
-              jobCount="555"
-            ></JobCategories>
+          <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
+            {careers.map((el) => {
+              return (
+                <JobCategories
+                  key={el.id}
+                  jobName={el.careerName}
+                ></JobCategories>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ export const apiGetCareers = async () => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: "/api/v1/career/all",
+      url: "/career",
     });
     return response;
   } catch (error) {

@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { useDebugValue, useEffect } from "react";
+import { useEffect } from "react";
 
-import { companyAPI } from "../../../apis";
 import CompanyItem from "../../../Components/Company/CompanyItem";
+import useFetchData from "../../../utils/useFetchData";
 
 const Companies = () => {
-  useEffect(() => {
-    const response = new Promise((resolve, reject) => {});
-  }, []);
+  const { data, isLoading, error } = useFetchData(
+    "http://localhost:5000/api/v1/company/filter",
+    "none",
+  );
+
   return (
     <div className="-mt-12">
       <div className="min-h-[273px] bg-gradient-to-tr from-[#fff] to-[rgb(196,233,255)] pt-6">
@@ -60,10 +62,11 @@ const Companies = () => {
           Danh sách các công ty nổi bật
         </h1>
         <div className="grid grid-cols-12 gap-4">
-          <CompanyItem className="col-span-4" />
-          <CompanyItem className="col-span-4" />
-          <CompanyItem className="col-span-4" />
-          <CompanyItem className="col-span-4" />
+          {data.map((el) => {
+            return (
+              <CompanyItem key={el.id} className={"col-span-4"} company={el} />
+            );
+          })}
         </div>
       </div>
     </div>
