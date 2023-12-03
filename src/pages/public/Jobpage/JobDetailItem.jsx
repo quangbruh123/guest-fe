@@ -13,11 +13,11 @@ const JobDetailItem = () => {
         <div className="w-[70%] space-y-2 pl-2">
           <span className="text-xs">BIND TÊN CÔNG TY</span>
           <div className="flex items-center space-x-2 text-xs">
-            <i class="fa-solid fa-location-dot"></i>
+            <i className="fa-solid fa-location-dot"></i>
             <span className="">bind tên tỉnh thành</span>
           </div>
           <div className="flex items-center space-x-2 text-xs">
-            <i class="fa-solid fa-coins"></i>
+            <i className="fa-solid fa-coins"></i>
             <span className="">bind lương</span>
           </div>
         </div>
