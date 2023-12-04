@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
+import parse from "html-react-parser";
+
 const CompanyParagraph = ({ paragraph }) => {
   const contentDiv = useRef(null);
   const overflow = useRef(false);
@@ -15,7 +17,7 @@ const CompanyParagraph = ({ paragraph }) => {
         <p
           className={"mb-3 overflow-hidden " + (expand ? "h-fit" : "h-[250px]")}
         >
-          {paragraph}
+          {parse(`${paragraph}`)}
         </p>
 
         {overflow.current && !expand && (

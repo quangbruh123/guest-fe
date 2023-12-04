@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import parse from "html-react-parser";
+
 const CompanyItem = ({ company, className }) => {
   return (
     <div
@@ -39,7 +41,7 @@ const CompanyItem = ({ company, className }) => {
           </NavLink>
         </h3>
         <div className="description pt-4 text-sm text-[#555]">
-          <p className="line-clamp-5">{company.introduction}</p>
+          <p className="line-clamp-5">{parse(company.introduction)}</p>
         </div>
       </div>
     </div>
