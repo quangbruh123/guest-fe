@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import JobItem from "./JobItem";
 import JobCategories from "./JobCategories";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useFetchData from "../../../utils/useFetchData";
 import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
@@ -12,10 +12,29 @@ const Homepage = () => {
     "http://localhost:5000/api/v1/post/filter",
   );
 
+  const [searchInput, setSearchInput] = useState("");
+  const [query, setQuery] = useState({
+    careerId: null,
+    location: "",
+  });
   const staticData = useSelector(getStaticData);
+  useEffect(() => {
+    console.log(staticData);
+  }, []);
+
+  const handleChangeQuery = (e) => {
+    const value = e.target.value;
+    setQuery((prev) => ({
+      ...prev,
+      [e.target.name]: value,
+    }));
+    console.log(query);
+  };
+
+  const handleSearch = async () => {};
 
   return (
-    <div className=" bg-slate-100">
+    <div className="bg-slate-100">
       {/* <img
         src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/banner-top.jpg"
         alt=""
@@ -61,6 +80,11 @@ const Homepage = () => {
                   type="text"
                   placeholder="Nhập tên công việc"
                   className="outline-none"
+                  name="searchInput"
+                  value={searchInput}
+                  onChange={(e) => {
+                    setSearchInput(e.target.value);
+                  }}
                 ></input>
               </div>
               <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
@@ -68,8 +92,15 @@ const Homepage = () => {
                 <select
                   placeholder="Chọn ngành nghề"
                   className="flex h-full w-full cursor-pointer items-center outline-none"
+                  name="careerId"
+                  onChange={(e) => handleChangeQuery(e)}
                 >
                   <option>Chọn ngành nghề</option>
+                  {staticData?.careers?.map((career, index) => {
+                    return (
+                      <option value={career.id}>{career.careerName}</option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
@@ -82,7 +113,10 @@ const Homepage = () => {
                 </select>
               </div>
             </div>
-            <div className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]">
+            <div
+              className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]"
+              onClick={() => handleSeacrh}
+            >
               <button>Tìm ngay</button>
             </div>
           </div>
