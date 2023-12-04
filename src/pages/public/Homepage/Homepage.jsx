@@ -6,33 +6,26 @@ import { useEffect, useState } from "react";
 import useFetchData from "../../../utils/useFetchData";
 import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
+import SelectCustom from "../../../Components/Select";
 
 const Homepage = () => {
-  const { data, isLoading, error } = useFetchData(
+  const staticData = useSelector(getStaticData);
+  const [searchUrl, setSearchUrl] = useState(
     "http://localhost:5000/api/v1/post/filter",
   );
+  const [query, setQuery] = useState({});
 
-  const [searchInput, setSearchInput] = useState("");
-  const [query, setQuery] = useState({
-    careerId: null,
-    location: "",
-  });
-  const staticData = useSelector(getStaticData);
-  useEffect(() => {
-    console.log(staticData);
-  }, []);
-
-  const handleChangeQuery = (e) => {
-    const value = e.target.value;
-    setQuery((prev) => ({
-      ...prev,
-      [e.target.name]: value,
-    }));
-    console.log(query);
+  const [jobName, setJobName] = useState(null);
+  const [careerObject, setCareerId] = useState(null);
+  const [positionObject, setPosition] = useState(null);
+  const handleClick = () => {
+    setQuery({
+      jobTitle: jobName,
+      careerId: careerObject?.value,
+      positionId: positionObject?.value,
+    });
   };
-
-  const handleSearch = async () => {};
-
+  const { data, isLoading, error } = useFetchData(searchUrl, query);
   return (
     <div className="bg-slate-100">
       {/* <img
@@ -73,52 +66,50 @@ const Homepage = () => {
       <div className="h-fit">
         <div className="mx-auto flex justify-between bg-white py-6">
           <div className="mx-auto flex w-[60rem] justify-between">
-            <div className="flex w-[85%] space-x-2">
+            <div className="flex h-[40px] w-[85%] space-x-2">
               <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input
                   type="text"
                   placeholder="Nhập tên công việc"
                   className="outline-none"
-                  name="searchInput"
-                  value={searchInput}
                   onChange={(e) => {
-                    setSearchInput(e.target.value);
+                    setJobName(e.target.value);
                   }}
                 ></input>
               </div>
-              <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
-                <i className="fa-solid fa-list"></i>
-                <select
-                  placeholder="Chọn ngành nghề"
-                  className="flex h-full w-full cursor-pointer items-center outline-none"
-                  name="careerId"
-                  onChange={(e) => handleChangeQuery(e)}
-                >
-                  <option>Chọn ngành nghề</option>
-                  {staticData?.careers?.map((career, index) => {
-                    return (
-                      <option value={career.id}>{career.careerName}</option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 px-2">
-                <i className="fa-solid fa-location-dot"></i>
-                <select
-                  placeholder="Chọn địa điểm"
-                  className="flex h-full w-full cursor-pointer items-center outline-none"
-                >
-                  <option>Chọn địa điểm</option>
-                </select>
-              </div>
+
+              <SelectCustom
+                className=" h-[40px] w-2/3 rounded-[4px] border-[1px] border-gray-400"
+                name={"Ngành nghề"}
+                select={"Chọn ngành nghề"}
+                values={staticData?.careers?.map((el) => {
+                  return {
+                    value: el.id,
+                    label: el.careerName,
+                  };
+                })}
+                onChange={setCareerId}
+              />
+              <SelectCustom
+                className=" h-[40px] w-2/3 rounded-[4px] border-[1px] border-gray-400"
+                name={"Cấp bậc"}
+                select={"Chọn cấp bậc"}
+                values={staticData?.positions?.map((el) => {
+                  return {
+                    value: el.id,
+                    label: el.positionName,
+                  };
+                })}
+                onChange={setPosition}
+              />
             </div>
-            <div
-              className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]"
-              onClick={() => handleSeacrh}
+            <button
+              onClick={handleClick}
+              className="rounded-[4px] bg-[#0B6FBA] px-8 py-2 font-medium text-white hover:bg-[#095e9b]"
             >
-              <button>Tìm ngay</button>
-            </div>
+              Tìm ngay
+            </button>
           </div>
         </div>
 
@@ -136,7 +127,7 @@ const Homepage = () => {
                 </div>
                 <div className="flex flex-col bg-white">
                   <div className="mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
-                    {data.map((el) => {
+                    {data?.map((el) => {
                       return (
                         <JobItem
                           key={el.id}
@@ -161,22 +152,33 @@ const Homepage = () => {
                   </h2>
                   <div></div>
                   <div className="px-7">
-                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
-                      <span>TẤT CẢ VIỆC LÀM</span>
-                      <i className="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
-                      <span>NHÀ TUYỂN DỤNG</span>
-                      <i className="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
-                      <span>GIỚI THIỆU</span>
-                      <i className="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div className="flex items-center justify-between py-6">
-                      <span>TIN TỨC - SỰ KIỆN</span>
-                      <i className="fa-solid fa-chevron-right"></i>
-                    </div>
+                    <NavLink to={"/jobs"}>
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                        <span>TẤT CẢ VIỆC LÀM</span>
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </NavLink>
+
+                    <NavLink to={"/viec-lam"}>
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                        <span>NHÀ TUYỂN DỤNG</span>
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </NavLink>
+
+                    <NavLink>
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                        <span>GIỚI THIỆU</span>
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </NavLink>
+
+                    <NavLink to={"/news"}>
+                      <div className="flex items-center justify-between py-6">
+                        <span>TIN TỨC - SỰ KIỆN</span>
+                        <i className="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </NavLink>
                   </div>
                 </div>
               </div>

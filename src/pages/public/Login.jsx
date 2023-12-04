@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginImg from "../../assets/login-img.svg";
 import { Link, NavLink } from "react-router-dom";
+import { apiLogin } from "../../apis/auth";
+import { useDispatch } from "react-redux";
+import { setAccessToken } from "../../store/authReducer";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const handleLogin = async () => {
+    try {
+      console.log(username, password);
+      const response = await apiLogin({ username, password, roleId: 2 });
+      dispatch(setAccessToken(response.data.accessToken));
+      await Swal.fire;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex h-screen w-screen items-center">
       <div className="w-[60%]">
@@ -18,12 +35,13 @@ const Login = () => {
           </div>
 
           <div className="mb-5 w-[100%] space-y-2">
-            <label className="">Email</label>
+            <label className="">Username</label>
             <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
               <i className="fa-solid fa-envelope p-4 text-blue-700"></i>
               <input
                 className="h-full flex-auto focus:outline-none"
-                placeholder="Email"
+                placeholder="Username"
+                onChange={(e) => setUserName(e.target.value)}
               ></input>
             </div>
           </div>
@@ -35,6 +53,7 @@ const Login = () => {
                 className="h-full flex-auto pr-2 focus:outline-none"
                 placeholder="Password"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
           </div>
@@ -47,18 +66,20 @@ const Login = () => {
             </NavLink>
           </div>
           <div className="mb-5 flex w-[100%] items-center justify-center rounded-md bg-blue-600 text-white">
-            <button className="w-full py-3">Đăng nhập</button>
+            <button className="w-full py-3" onClick={handleLogin}>
+              Đăng nhập
+            </button>
           </div>
           <div className="mb-5 flex w-[100%] items-center justify-center text-[#6F7882]">
             <span>Hoặc đăng nhập bằng</span>
           </div>
           <div className="mb-5 flex w-[100%] items-center justify-between">
             <button className="w-[45%] space-x-2 rounded-md bg-[#e73b2f] py-3 text-white hover:bg-[#d3533d]">
-              <i class="fa-brands fa-google"></i>
+              <i className="fa-brands fa-google"></i>
               <span>Google</span>
             </button>
             <button className="w-[45%] space-x-2 rounded-md bg-[#1877f2] py-3 text-white hover:bg-[#0b5ed7]">
-              <i class="fa-brands fa-facebook"></i>
+              <i className="fa-brands fa-facebook"></i>
               <span>Facebook</span>
             </button>
           </div>

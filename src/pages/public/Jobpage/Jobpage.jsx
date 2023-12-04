@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import JobItem from "../../../Components/JobItem";
+import SelectCustom from "../../../Components/Select";
+import { useSelector } from "react-redux";
+import { getStaticData } from "../../../store/staticData";
+import useFetchData from "../../../utils/useFetchData";
 
 const Jobpage = () => {
+  const staticData = useSelector(getStaticData);
+  const { data, isLoading, error } = useFetchData(
+    "http://localhost:5000/api/v1/post/filter",
+  );
+
+  const [careerObject, setCareerObject] = useState(null);
+
   return (
     <div className="block">
       <div className="m-auto w-[70rem]">
@@ -12,35 +23,31 @@ const Jobpage = () => {
               <span className="text-2xl font-medium">Tìm việc nhanh</span>
             </div>
             <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
               <input
                 type="text"
                 placeholder="Nhập tên công việc"
                 className="outline-none"
               ></input>
             </div>
-            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <i class="fa-solid fa-list"></i>
-              <select
-                placeholder="Chọn ngành nghề"
-                className="flex h-full w-full cursor-pointer items-center outline-none"
-              >
-                <option>Chọn ngành nghề</option>
-              </select>
-            </div>
-            <div className="flex w-[30%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <select
-                placeholder="Chọn địa điểm"
-                className="flex h-full w-full cursor-pointer items-center outline-none"
-              >
-                <option>Chọn địa điểm</option>
-              </select>
-            </div>
+
+            <SelectCustom
+              className=" h-[40px] w-1/3 rounded-[4px] border-[1px] border-gray-400"
+              name={"Ngành nghề"}
+              select={"Chọn ngành nghề"}
+              values={staticData?.careers?.map((el) => {
+                return {
+                  value: el.id,
+                  label: el.careerName,
+                };
+              })}
+              onChange={setCareerObject}
+            />
           </div>
-          <div className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]">
-            <button>Tìm ngay</button>
-          </div>
+
+          <button className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]">
+            Tìm ngay
+          </button>
         </div>
 
         <div className="mx-auto flex space-x-2">
@@ -56,19 +63,19 @@ const Jobpage = () => {
               </div>
             </div>
 
-            <div>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-              <JobItem></JobItem>
-            </div>
+            {data?.map((el) => {
+              return (
+                <JobItem
+                  key={el.id}
+                  jobName={el.jobTitle}
+                  companyName={el.Company.companyName}
+                  salaryMax={el.salaryMax}
+                  salaryMin={el.salaryMin}
+                  endDate={el.endDate}
+                  pid={el.id}
+                />
+              );
+            })}
           </div>
 
           <div className="w-[30%]">
@@ -80,23 +87,23 @@ const Jobpage = () => {
               <div className="px-7">
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>NGÀNH NGHỀ</span>
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>ĐỊA ĐIỂM</span>
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>MỨC LƯƠNG</span>
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>TRÌNH ĐỘ</span>
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </div>
                 <div className="flex items-center justify-between py-4">
                   <span>HÌNH THỨC LÀM VIỆC</span>
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </div>
               </div>
             </div>
