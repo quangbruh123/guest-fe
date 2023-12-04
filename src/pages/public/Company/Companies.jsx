@@ -1,14 +1,23 @@
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import CompanyItem from "../../../Components/Company/CompanyItem";
 import useFetchData from "../../../utils/useFetchData";
 
 const Companies = () => {
+  const [query, setQuery] = useState({});
+  const [companyName, setCompanyName] = useState("");
+
   const { data, isLoading, error } = useFetchData(
     "http://localhost:5000/api/v1/company/filter",
-    "none",
+    query,
   );
+
+  const handleSearch = () => {
+    setQuery({
+      companyName: companyName,
+    });
+  };
 
   return (
     <div className="-mt-12">
@@ -42,8 +51,14 @@ const Companies = () => {
                 type="text"
                 className="h-full w-full border-transparent pl-16 text-base text-[#212529] outline-none"
                 placeholder="Nhập tên công ty"
+                onChange={(e) => {
+                  setCompanyName(e.target.value);
+                }}
               />
-              <button className=" absolute right-[7px] top-2/4 -translate-y-2/4 rounded-[100px] bg-blue-700 px-3 py-1 text-base text-white">
+              <button
+                className=" absolute right-[7px] top-2/4 -translate-y-2/4 rounded-[100px] bg-blue-700 px-3 py-1 text-base text-white"
+                onClick={handleSearch}
+              >
                 Tìm kiếm
               </button>
             </div>

@@ -27,7 +27,7 @@ function PublicLayout() {
     <div>
       <Navbar></Navbar>
       <div className="h-[72px]"></div>
-      <div className="mt-12 min-h-screen bg-bg-xam-nhat">
+      <div className="min-h-screen bg-bg-xam-nhat pt-12">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

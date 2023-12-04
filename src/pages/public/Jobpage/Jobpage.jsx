@@ -8,11 +8,21 @@ import useFetchData from "../../../utils/useFetchData";
 
 const Jobpage = () => {
   const staticData = useSelector(getStaticData);
+
+  const [query, setQuery] = useState({});
   const { data, isLoading, error } = useFetchData(
     "http://localhost:5000/api/v1/post/filter",
+    query,
   );
-
+  const [jobTitle, setJobTitle] = useState("");
   const [careerObject, setCareerObject] = useState(null);
+
+  const handleSearch = () => {
+    setQuery({
+      jobTitle: jobTitle,
+      careerId: careerObject?.value,
+    });
+  };
 
   return (
     <div className="block">
@@ -28,6 +38,10 @@ const Jobpage = () => {
                 type="text"
                 placeholder="Nhập tên công việc"
                 className="outline-none"
+                name="jobTitle"
+                onChange={(e) => {
+                  setJobTitle(e.target.value);
+                }}
               ></input>
             </div>
 
@@ -45,7 +59,10 @@ const Jobpage = () => {
             />
           </div>
 
-          <button className="rounded-[4px] bg-[#0B6FBA] px-8 py-3 font-medium text-white hover:bg-[#095e9b]">
+          <button
+            className="rounded-[4px] bg-[#0B6FBA] px-8 py-2 font-medium text-white hover:bg-[#095e9b]"
+            onClick={handleSearch}
+          >
             Tìm ngay
           </button>
         </div>
