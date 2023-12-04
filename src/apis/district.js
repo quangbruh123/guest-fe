@@ -3,7 +3,7 @@ import axios from "axios";
 export const apiGetDistricts = async () => {
   try {
     const response = await axios.get(
-      "https://provinces.open-api.vn/api/p/79?depth=2",
+      "https://provinces.open-api.vn/api/p/79?depth=3",
     );
 
     const sortedData = response.data.districts.sort((a, b) => {
