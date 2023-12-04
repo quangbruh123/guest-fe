@@ -5,7 +5,9 @@ import CompanyItem from "../../../Components/Company/CompanyItem";
 import useFetchData from "../../../utils/useFetchData";
 
 const Companies = () => {
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState({
+    limit: 10,
+  });
   const [companyName, setCompanyName] = useState("");
 
   const { data, isLoading, error } = useFetchData(

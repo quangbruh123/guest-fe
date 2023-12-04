@@ -9,6 +9,7 @@ const CompanyDetail = () => {
 
   const { data, isLoading, isError } = useFetchData(
     `http://localhost:5000/api/v1/company/${cid}`,
+    null,
     "object",
   );
   console.log(data);
@@ -117,7 +118,8 @@ const CompanyDetail = () => {
                     </div>
                     <div className="job-list">
                       {data.Posts?.map((el) => {
-                        return <JobItem key={el.id} />;
+                        console.log(el);
+                        return <JobItem key={el.id} jobData={el} />;
                       })}
                     </div>
                     <div className="mt-5 flex justify-center gap-6">
@@ -137,9 +139,9 @@ const CompanyDetail = () => {
             </div>
           </div>
           <div className="right col-span-4">
-            <div className="mb-8 overflow-hidden">
+            <div className="mb-8 overflow-hidden bg-white">
               <h2 className="m-0 rounded-t-md bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
-                Giới thiệu công ty
+                Thông tin liên hệ
               </h2>
               <div className="box-body rounded-b-md border border-[#e9eaec] px-5 pb-2">
                 <div className="py-5">

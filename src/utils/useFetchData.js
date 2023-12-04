@@ -8,18 +8,24 @@ const useFetchData = (url, query, dataType = "none") => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(url, query);
+    let ignore = false;
     const fetchData = async () => {
-      try {
-        const response = await axios.get(url, {
-          params: query,
-        });
-        setData(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
+      if (!ignore) {
+        try {
+          const response = await axios.get(url, {
+            params: query,
+          });
+          console.log(response);
+          setData(response.data);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setIsLoading(false);
+        }
       }
+      return () => {
+        ignore = true;
+      };
     };
 
     fetchData();
