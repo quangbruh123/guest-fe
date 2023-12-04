@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginImg from "../../assets/login-img.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { apiLogin } from "../../apis/auth";
 import { useDispatch } from "react-redux";
 import { setAccessToken } from "../../store/authReducer";
@@ -10,12 +10,23 @@ const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogin = async () => {
     try {
-      console.log(username, password);
       const response = await apiLogin({ username, password, roleId: 2 });
-      dispatch(setAccessToken(response.data.accessToken));
-      await Swal.fire;
+      if (response.status === 200) {
+        dispatch(setAccessToken(response.data.accessToken));
+      } else {
+        dispatch(setAccessToken(""));
+      }
+
+      await Swal.fire({
+        text: `Đăng nhập ${
+          response?.status === 200 ? "Thành công" : "Thất bại"
+        }`,
+        icon: `${response?.status === 200 ? "success" : "error"}`,
+      });
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

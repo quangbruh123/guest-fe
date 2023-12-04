@@ -2,10 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import staticData from "./staticData";
 import authReducer from "./authReducer";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PERSIST,
+  REGISTER,
+  PURGE,
+} from "redux-persist";
 
 const persistConfig = {
-  key: "root",
+  key: "user",
   storage,
 };
 const commonConfig = {

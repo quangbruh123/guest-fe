@@ -4,7 +4,7 @@ export const apiLogin = async (payload) => {
   try {
     const response = await axiosInstance({
       method: "post",
-      url: "/api/v1/auth/login",
+      url: "/auth/login",
       data: payload,
     });
     return response;
