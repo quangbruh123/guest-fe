@@ -8,7 +8,7 @@ const CompanyDetail = () => {
   const { cid } = useParams();
 
   const { data, isLoading, isError } = useFetchData(
-    `http://localhost:5000/api/v1/company/${cid}`,
+    `/company/${cid}`,
     null,
     "object",
   );

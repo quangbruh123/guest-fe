@@ -10,10 +10,7 @@ const Companies = () => {
   });
   const [companyName, setCompanyName] = useState("");
 
-  const { data, isLoading, error } = useFetchData(
-    "http://localhost:5000/api/v1/company/filter",
-    query,
-  );
+  const { data, isLoading, error } = useFetchData("/company/filter", query);
 
   const handleSearch = () => {
     setQuery({

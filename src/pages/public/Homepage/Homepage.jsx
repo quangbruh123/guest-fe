@@ -10,9 +10,7 @@ import SelectCustom from "../../../Components/Select";
 
 const Homepage = () => {
   const staticData = useSelector(getStaticData);
-  const [searchUrl, setSearchUrl] = useState(
-    "http://localhost:5000/api/v1/post/filter",
-  );
+  const [searchUrl, setSearchUrl] = useState("/post/filter");
   const [query, setQuery] = useState({});
 
   const [jobName, setJobName] = useState(null);

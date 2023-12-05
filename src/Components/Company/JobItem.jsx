@@ -4,7 +4,7 @@ import { dayRemain } from "../../utils/helper";
 
 const JobItem = ({ jobData }) => {
   const { data, isLoading, isError } = useFetchData(
-    `http://localhost:5000/api/v1/company/${jobData?.companyId}`,
+    `/company/${jobData?.companyId}`,
     null,
     "object",
   );

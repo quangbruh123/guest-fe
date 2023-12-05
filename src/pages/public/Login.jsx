@@ -12,6 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
+    console.log(username, password);
     try {
       const response = await apiLogin({ username, password, roleId: 2 });
       if (response.status === 200) {

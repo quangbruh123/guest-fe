@@ -3,11 +3,16 @@ import axiosInstance from "./axiosConfig";
 
 export const apiLogin = async (payload) => {
   try {
-    const response = await axiosInstance({
-      method: "post",
-      url: "/auth/login",
-      data: payload,
-    });
+    const response = await axios.post(
+      "http://localhost:5000/api/v1/auth/login",
+      {
+        username: payload.username,
+        password: payload.password,
+      },
+      {
+        withCredentials: true,
+      },
+    );
     return response;
   } catch (error) {
     console.log(error);

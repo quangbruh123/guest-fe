@@ -18,7 +18,8 @@ export const apiGetPost = async (id) => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: `/api/v1/post/${id}`,
+      url: `/post/${id}`,
+      withCredentials: true,
     });
     return response;
   } catch (error) {

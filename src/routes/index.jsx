@@ -33,10 +33,23 @@ const router = createBrowserRouter(
         <Route index element={<Homepage />}></Route>
         <Route path="news" element={<News />}></Route>
         <Route path="cong-ty" element={<Companies />}></Route>
-        <Route path="cong-ty/:cid" element={<CompanyDetail />}></Route>
+        <Route
+          path="cong-ty/:cid"
+          element={
+            <PrivateRoute>
+              <CompanyDetail />
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="jobs" element={<Jobpage></Jobpage>}></Route>
-        <Route path="jobs/detail/" element={<JobDetail></JobDetail>}></Route>
-        <Route path="jobs/detail/:id" element={<JobDetail></JobDetail>}></Route>
+        <Route
+          path="jobs/detail/:id"
+          element={
+            <PrivateRoute>
+              <JobDetail></JobDetail>
+            </PrivateRoute>
+          }
+        ></Route>
       </Route>
       <Route path="/tai-khoan" element={<PrivateRoute></PrivateRoute>}>
         <Route></Route>

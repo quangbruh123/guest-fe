@@ -10,10 +10,7 @@ const Jobpage = () => {
   const staticData = useSelector(getStaticData);
 
   const [query, setQuery] = useState({});
-  const { data, isLoading, error } = useFetchData(
-    "http://localhost:5000/api/v1/post/filter",
-    query,
-  );
+  const { data, isLoading, error } = useFetchData("/post/filter", query);
   const [jobTitle, setJobTitle] = useState("");
   const [careerObject, setCareerObject] = useState(null);
 
