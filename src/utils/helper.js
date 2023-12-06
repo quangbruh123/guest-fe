@@ -13,3 +13,13 @@ export const dayRemain = (endDate) => {
 
   return days;
 };
+
+export const dateVN = (date) => {
+  const date_temp = `${date}`;
+  const temp = date_temp.split("-");
+  const day = temp[2];
+  const month = temp[1];
+  const year = temp[0];
+  const dateVN = `${day}/${month}/${year}`;
+  return dateVN;
+};

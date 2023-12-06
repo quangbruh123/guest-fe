@@ -57,7 +57,7 @@ export const apiGetRelatedPost = async (postId, careerIds) => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: "/api/v1/post/get-related-post",
+      url: "/post/relate",
       params: {
         postId,
         careerIds,
