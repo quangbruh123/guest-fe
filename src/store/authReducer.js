@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stat } from "graceful-fs";
 
 const authSlice = createSlice({
   name: "auth",

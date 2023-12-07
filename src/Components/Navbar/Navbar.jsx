@@ -1,18 +1,25 @@
 //import React from 'react';
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getUsername } from "../../store/authReducer";
+import { logOut } from "../../store/authReducer";
 
 import "./Navbar.css";
-import { useState } from "react";
 
 const Navbar = () => {
   //const pending = '';
   //const active = '';
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const username = useSelector(getUsername);
   const [hover, setHover] = useState(false);
-  const handleLogOut = () => {};
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate("/dang-nhap");
+  };
 
   return (
     <div className="navbar fixed left-0 right-0 top-0 z-50 block h-[72px] w-full max-w-full bg-white">
@@ -53,7 +60,7 @@ const Navbar = () => {
                   </div>
                   <div
                     className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300"
-                    onClick={() => handleLogOut}
+                    onClick={handleLogOut}
                   >
                     <i className="fa-solid fa-right-from-bracket"></i>
                     <div>Đăng xuất</div>
