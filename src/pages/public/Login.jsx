@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import LoginImg from "../../assets/login-img.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { apiLogin } from "../../apis/auth";
+import { apiLogin, getCurrentUser } from "../../apis/auth";
 import { useDispatch } from "react-redux";
-import { setAccessToken } from "../../store/authReducer";
+import { setAccessToken, setUser } from "../../store/authReducer";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const dispatch2 = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
     console.log(username, password);
     try {
       const response = await apiLogin({ username, password, roleId: 2 });
       if (response.status === 200) {
-        dispatch(setAccessToken(response.data.accessToken));
+        dispatch(setAccessToken(response?.data?.accessToken));
       } else {
         dispatch(setAccessToken(""));
+      }
+      const response2 = await getCurrentUser();
+      console.log(response2);
+      if (response2.status === 200) {
+        dispatch2(setUser(response2?.data?.candidateName));
       }
 
       await Swal.fire({

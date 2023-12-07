@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useSelector } from "react-redux";
-import { authAPI } from "../../apis";
+import Swal from "sweetalert2";
 
+import { authAPI } from "../../apis";
 import { getStaticData } from "../../store/staticData";
 import SelectCustom from "../../Components/Select";
 import LoginImg from "../../assets/login-img.svg";
 import "./index.css";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const staticData = useSelector(getStaticData);
   const [signUpInfo, setSignUpInfo] = useState({
     username: "",
@@ -44,8 +46,15 @@ const SignUp = () => {
   };
 
   const handleSignUp = async () => {
-    const response = await authAPI.apiSignUp(signUpInfo).then((data) => {
-      console.log(data);
+    const response = await authAPI.apiSignUp(signUpInfo);
+    console.log(response);
+    await Swal.fire({
+      text: `Đăng ký ${
+        response?.status === 201
+          ? "Thành công"
+          : `Thất bại: ${response?.data?.msg}`
+      }`,
+      icon: `${response?.status === 201 ? "success" : "error"}`,
     });
   };
 

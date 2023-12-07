@@ -9,7 +9,7 @@ import Comment from "./Comment";
 
 const JobDetail = () => {
   const { id } = useParams();
-  const [career, setCareer] = useState(null);
+  const [career, setCareer] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
 
   const { data, isLoading, isError } = useFetchData(
@@ -45,16 +45,16 @@ const JobDetail = () => {
     setCareer(temp);
   }, []);
 
-  useEffect(() => {
-    if (career) {
-      const temp = [career[2].id];
-      const response = postAPI
-        .apiGetRelatedPost(data?.id, temp)
-        .then((data) => {
-          console.log(data);
-        });
-    }
-  }, [career]);
+  // useEffect(() => {
+  //   if (career) {
+  //     const temp = [career[2].id];
+  //     const response = postAPI
+  //       .apiGetRelatedPost(data?.id, temp)
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   }
+  // }, [career]);
 
   return (
     <div className="block pb-10">
@@ -253,7 +253,7 @@ const JobDetail = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-lg font-bold">Nghành nghề</div>
+              <div className="text-lg font-bold">Ngành nghề</div>
               <div className="flex flex-wrap gap-2">
                 {data?.Careers?.map((data) => {
                   return (

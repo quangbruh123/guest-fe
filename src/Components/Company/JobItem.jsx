@@ -21,7 +21,9 @@ const JobItem = ({ jobData }) => {
           <div className="content mb-2 flex justify-between">
             <div>
               <h3 className="mb-1 mr-6 line-clamp-2 text-base font-semibold text-blue-dam">
-                <NavLink>{jobData?.jobTitle}</NavLink>
+                <NavLink to={`/jobs/detail/${jobData?.id}`}>
+                  {jobData?.jobTitle}
+                </NavLink>
               </h3>
               <span className="line-clamp-1 w-full text-sm font-normal text-[#424e5c]">
                 {data.companyName}

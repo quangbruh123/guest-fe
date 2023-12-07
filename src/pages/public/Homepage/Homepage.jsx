@@ -129,6 +129,7 @@ const Homepage = () => {
                       return (
                         <JobItem
                           key={el.id}
+                          id={el.id}
                           jobName={el.jobTitle}
                           companyName={el.Company.companyName}
                           salaryMax={el.salaryMax}

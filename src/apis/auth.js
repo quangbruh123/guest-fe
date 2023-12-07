@@ -26,7 +26,21 @@ export const apiSignUp = async (payload) => {
       url: "/auth/create-candidate",
       data: payload,
     });
+    return response;
   } catch (error) {
-    console.log(error);
+    return error;
+  }
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance({
+      method: "get",
+      url: "/auth/current-user",
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    return error;
   }
 };
