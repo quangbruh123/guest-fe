@@ -24,6 +24,7 @@ const Homepage = () => {
     });
   };
   const { data, isLoading, error } = useFetchData(searchUrl, query);
+
   return (
     <div className="bg-slate-100">
       {/* <img

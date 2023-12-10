@@ -1,12 +1,12 @@
 //import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getUsername } from "../../store/authReducer";
-import { logOut } from "../../store/authReducer";
-
+import { logOut, getAccessToken, setUser } from "../../store/authReducer";
+import { apiLogOut, getCurrentUser } from "../../apis/auth";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -15,11 +15,24 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const username = useSelector(getUsername);
+  const accessToken = useSelector(getAccessToken);
   const [hover, setHover] = useState(false);
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     dispatch(logOut());
     navigate("/dang-nhap");
+    // const response = await apiLogOut().then((data) => {
+    //   console.log(data);
+    // });
   };
+
+  useEffect(() => {
+    const response = getCurrentUser().then((data) => {
+      console.log(data);
+      if (data.status === 200) {
+        dispatch(setUser(data?.data?.candidateName));
+      }
+    });
+  }, [accessToken]);
 
   return (
     <div className="navbar fixed left-0 right-0 top-0 z-50 block h-[72px] w-full max-w-full bg-white">
@@ -53,7 +66,9 @@ const Navbar = () => {
               <div className="font-semibold">Xin chào, {username}</div>
               <i class="fa-solid fa-angle-down"></i>
               {hover && (
-                <div className="absolute top-16 w-[280px] overflow-clip rounded-lg bg-white shadow-lg">
+                <div className="absolute top-16 w-[280px] overflow-clip rounded-lg bg-white shadow-lg" onMouseLeave={() => {
+                  setHover(false);
+                }}>
                   <div className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300">
                     <i className="fa-solid fa-user"></i>
                     <div>Thông tin tài khoản</div>

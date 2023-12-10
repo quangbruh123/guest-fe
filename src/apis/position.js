@@ -4,7 +4,7 @@ export const apiGetPositions = async () => {
   try {
     const response = await axiosInstance({
       method: "get",
-      url: "/position",
+      url: "/position/",
     });
     return response;
   } catch (error) {

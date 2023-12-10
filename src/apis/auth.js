@@ -44,3 +44,16 @@ export const getCurrentUser = async () => {
     return error;
   }
 };
+
+export const apiLogOut = async () => {
+  try {
+    const response = await axiosInstance({
+      method: "get",
+      url: "/auth/logout",
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

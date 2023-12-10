@@ -29,3 +29,4 @@ export const { setAccessToken, setUser, logOut } = authSlice.actions;
 export default authSlice.reducer;
 
 export const getUsername = (state) => state.auth.username;
+export const getAccessToken = (state) => state.auth.accessToken;

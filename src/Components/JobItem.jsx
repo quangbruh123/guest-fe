@@ -8,6 +8,7 @@ const JobItem = ({
   salaryMin,
   endDate,
   pid,
+  image,
 }) => {
   const navigate = useNavigate();
   let salaryOutput;
@@ -22,8 +23,8 @@ const JobItem = ({
   }
   return (
     <div className="my-2 flex w-[100%] border-[1px] border-slate-300 bg-white p-4">
-      <div className="w-[20%]">
-        <img src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/avatar.jpg"></img>
+      <div className="h-[110px] w-[20%]">
+        <img src={image} className="h-[100%] w-[100%] object-contain"></img>
       </div>
       <div className="ml-3 flex w-[80%] flex-col">
         <span

@@ -1,24 +1,114 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import JobItem from "../../../Components/JobItem";
 import SelectCustom from "../../../Components/Select";
-import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
 import useFetchData from "../../../utils/useFetchData";
+import { SalaryMin } from "./postQuery";
 
 const Jobpage = () => {
   const staticData = useSelector(getStaticData);
 
-  const [query, setQuery] = useState({});
+  // Query để lấy dữ liệu post
+  const [query, setQuery] = useState({
+    jobTitle: "",
+    careerId: "",
+    salaryMin: null,
+    workingTypeId: null,
+    positionId: null,
+  });
+
+  // Phần data post fetch về từ database
   const { data, isLoading, error } = useFetchData("/post/filter", query);
+
+  // Các thành phần của state query trên
   const [jobTitle, setJobTitle] = useState("");
   const [careerObject, setCareerObject] = useState(null);
 
+  // Các state lưu trữ danh sách danh mục lọc
+  const [salaryMinList, setSalaryMinList] = useState([]);
+  const [workingTypeList, setWorkingTypeList] = useState([]);
+  const [positionList, setPositionList] = useState([]);
+
+  // Các state quản lý trạng thái đóng mở của các danh mục
+  const [salaryToggle, setSalaryToggle] = useState(false);
+  const [workingTypeToggle, setWorkingTypeToggle] = useState(false);
+  const [positionToggle, setPositionToggle] = useState(false);
+
   const handleSearch = () => {
-    setQuery({
+    setQuery((prev) => ({
+      salaryMin: null,
+      workingTypeId: null,
+      positionId: null,
       jobTitle: jobTitle,
       careerId: careerObject?.value,
+    }));
+  };
+
+  useEffect(() => {
+    var workingTpye_temp = [];
+    var salaryMin_temp = [];
+    var position_temp = [];
+
+    // Gắn dữ liệu cho working type list
+    staticData?.workingTypes?.map((el, idx) => {
+      const temp = {
+        id: el.id,
+        workingTypeName: el.workingTypeName,
+        checked: false,
+      };
+      workingTpye_temp.push(temp);
     });
+    setWorkingTypeList(workingTpye_temp);
+
+    console.log(staticData?.positions);
+    staticData?.positions?.map((el, idx) => {
+      const temp = {
+        id: el.id,
+        positionName: el.positionName,
+        checked: false,
+      };
+      position_temp.push(temp);
+    });
+    setPositionList(position_temp);
+
+    // Gắn dữ liệu cho salary min list
+    salaryMin_temp = SalaryMin;
+    setSalaryMinList(salaryMin_temp);
+  }, []);
+
+  const removeQuery = () => {
+    // Làm trống query
+    setQuery((prev) => ({
+      ...prev,
+      workingTypeId: null,
+      salaryMin: null,
+      positionId: null,
+    }));
+
+    // Làm mới lại danh mục
+    var workingTpye_temp = [];
+    var salaryMin_temp = [];
+    var position_temp = [];
+
+    salaryMin_temp = salaryMinList.map((data) => ({
+      ...data,
+      checked: false,
+    }));
+    setSalaryMinList(salaryMin_temp);
+
+    position_temp = positionList.map((data) => ({
+      ...data,
+      checked: false,
+    }));
+    setPositionList(position_temp);
+
+    workingTpye_temp = workingTypeList.map((data) => ({
+      ...data,
+      checked: false,
+    }));
+    setWorkingTypeList(workingTpye_temp);
   };
 
   return (
@@ -27,7 +117,18 @@ const Jobpage = () => {
         <div className="mx-auto mb-12 flex justify-between">
           <div className="flex w-[85%] space-x-2">
             <div className="flex w-[15rem] items-center pr-4">
-              <span className="text-2xl font-medium">Tìm việc nhanh</span>
+              <span
+                className="text-2xl font-medium"
+                onClick={() => {
+                  console.log(academicLevelList);
+                  console.log(workingTypeList);
+                  console.log(salaryMinList);
+                  console.log(positionList);
+                  console.log(query);
+                }}
+              >
+                Tìm việc nhanh
+              </span>
             </div>
             <div className="flex w-[40%] items-center space-x-2 rounded-[4px] border-[1px] border-gray-400 bg-white px-2">
               <i className="fa-solid fa-magnifying-glass"></i>
@@ -57,7 +158,7 @@ const Jobpage = () => {
           </div>
 
           <button
-            className="rounded-[4px] bg-[#0B6FBA] px-8 py-2 font-medium text-white hover:bg-[#095e9b]"
+            className="rounded-[4px] bg-blue-600 px-8 py-2 font-medium text-white hover:bg-blue-500"
             onClick={handleSearch}
           >
             Tìm ngay
@@ -87,6 +188,7 @@ const Jobpage = () => {
                   salaryMin={el.salaryMin}
                   endDate={el.endDate}
                   pid={el.id}
+                  image={el.Company.imageLink}
                 />
               );
             })}
@@ -94,30 +196,255 @@ const Jobpage = () => {
 
           <div className="w-[30%]">
             <div className="border-[1px] border-gray-300 bg-white">
-              <h2 className="border-b-[1px] border-gray-300 px-7 py-4 text-lg font-bold">
-                DANH MỤC
+              <h2 className="border-b-[1px] border-gray-300 bg-gradient-to-r from-blue-700 to-blue-500 px-7 py-4 text-lg font-bold text-white">
+                LỌC THEO
               </h2>
-              <div></div>
-              <div className="px-7">
-                <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
-                  <span>NGÀNH NGHỀ</span>
-                  <i className="fa-solid fa-chevron-right"></i>
+
+              {query.salaryMin || query.positionId || query.workingTypeId ? (
+                <div className="flex flex-wrap gap-2">
+                  <div className="mx-7 my-2 w-[100%] bg-gray-100 p-2">
+                    {salaryMinList?.map((el, idx) => {
+                      if (el.checked) {
+                        return (
+                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                            {el.label}
+                          </div>
+                        );
+                      }
+                    })}
+                    {positionList?.map((el, idx) => {
+                      if (el.checked) {
+                        return (
+                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                            {el.positionName}
+                          </div>
+                        );
+                      }
+                    })}
+                    {workingTypeList?.map((el, idx) => {
+                      if (el.checked) {
+                        return (
+                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                            {el.workingTypeName}
+                          </div>
+                        );
+                      }
+                    })}
+                    <div
+                      className="cursor-pointer py-1 text-sm text-blue-600 hover:underline"
+                      onClick={removeQuery}
+                    >
+                      Xóa
+                    </div>
+                  </div>
                 </div>
+              ) : null}
+
+              <div className="px-7">
                 <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>ĐỊA ĐIỂM</span>
                   <i className="fa-solid fa-chevron-right"></i>
                 </div>
-                <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
-                  <span>MỨC LƯƠNG</span>
-                  <i className="fa-solid fa-chevron-right"></i>
+                <div
+                  className="border-b-[1px] border-gray-300 py-4"
+                  onClick={() => setSalaryToggle((prev) => !prev)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>MỨC LƯƠNG</span>
+                    {!salaryToggle ? (
+                      <i className="fa-solid fa-chevron-right"></i>
+                    ) : (
+                      <i className="fa-solid fa-chevron-down"></i>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {salaryToggle
+                      ? salaryMinList?.map((el, idx) => {
+                          if (el.checked) {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    salaryMin: el.value,
+                                  }));
+
+                                  const arrtemp = salaryMinList.map((data) => ({
+                                    ...data,
+                                    checked: false,
+                                  }));
+                                  arrtemp[idx].checked = true;
+
+                                  setSalaryMinList(arrtemp);
+                                }}
+                              >
+                                {el.label}
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    salaryMin: el.value,
+                                  }));
+
+                                  const arrtemp = salaryMinList.map((data) => ({
+                                    ...data,
+                                    checked: false,
+                                  }));
+                                  arrtemp[idx].checked = true;
+
+                                  setSalaryMinList(arrtemp);
+                                }}
+                              >
+                                {el.label}
+                              </div>
+                            );
+                          }
+                        })
+                      : null}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
-                  <span>TRÌNH ĐỘ</span>
-                  <i className="fa-solid fa-chevron-right"></i>
+
+                <div
+                  className="border-b-[1px] border-gray-300 py-4"
+                  onClick={() => setWorkingTypeToggle((prev) => !prev)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>HÌNH THỨC LÀM VIỆC</span>
+                    {!workingTypeToggle ? (
+                      <i className="fa-solid fa-chevron-right"></i>
+                    ) : (
+                      <i className="fa-solid fa-chevron-down"></i>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {workingTypeToggle
+                      ? workingTypeList?.map((el, idx) => {
+                          if (el.checked) {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    workingTypeId: el.id,
+                                  }));
+
+                                  const arrtemp = workingTypeList.map(
+                                    (data) => ({
+                                      ...data,
+                                      checked: false,
+                                    }),
+                                  );
+                                  arrtemp[idx].checked = true;
+
+                                  setWorkingTypeList(arrtemp);
+                                }}
+                              >
+                                {el.workingTypeName}
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    workingTypeId: el.id,
+                                  }));
+
+                                  const arrtemp = workingTypeList.map(
+                                    (data) => ({
+                                      ...data,
+                                      checked: false,
+                                    }),
+                                  );
+                                  arrtemp[idx].checked = true;
+
+                                  setWorkingTypeList(arrtemp);
+                                }}
+                              >
+                                {el.workingTypeName}
+                              </div>
+                            );
+                          }
+                        })
+                      : null}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between py-4">
-                  <span>HÌNH THỨC LÀM VIỆC</span>
-                  <i className="fa-solid fa-chevron-right"></i>
+
+                <div
+                  className="py-4"
+                  onClick={() => setPositionToggle((prev) => !prev)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>VỊ TRÍ LÀM VIỆC</span>
+                    {!positionToggle ? (
+                      <i className="fa-solid fa-chevron-right"></i>
+                    ) : (
+                      <i className="fa-solid fa-chevron-down"></i>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    {positionToggle
+                      ? positionList?.map((el, idx) => {
+                          if (el.checked) {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    positionId: el.id,
+                                  }));
+
+                                  const arrtemp = positionList.map((data) => ({
+                                    ...data,
+                                    checked: false,
+                                  }));
+                                  arrtemp[idx].checked = true;
+
+                                  setPositionList(arrtemp);
+                                }}
+                              >
+                                {el.positionName}
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <div
+                                className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                onClick={() => {
+                                  setQuery((prev) => ({
+                                    ...prev,
+                                    positionId: el.id,
+                                  }));
+
+                                  const arrtemp = positionList.map((data) => ({
+                                    ...data,
+                                    checked: false,
+                                  }));
+                                  arrtemp[idx].checked = true;
+
+                                  setPositionList(arrtemp);
+                                }}
+                              >
+                                {el.positionName}
+                              </div>
+                            );
+                          }
+                        })
+                      : null}
+                  </div>
                 </div>
               </div>
             </div>

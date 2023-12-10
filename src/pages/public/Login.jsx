@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginImg from "../../assets/login-img.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { apiLogin, getCurrentUser } from "../../apis/auth";
-import { useDispatch } from "react-redux";
-import { setAccessToken, setUser } from "../../store/authReducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAccessToken,
+  setAccessToken,
+  setUser,
+} from "../../store/authReducer";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const dispatch2 = useDispatch();
+  const accessToken = useSelector(getAccessToken);
   const navigate = useNavigate();
   const handleLogin = async () => {
     console.log(username, password);
@@ -22,9 +26,8 @@ const Login = () => {
         dispatch(setAccessToken(""));
       }
       const response2 = await getCurrentUser();
-      console.log(response2);
       if (response2.status === 200) {
-        dispatch2(setUser(response2?.data?.candidateName));
+        dispatch(setUser(response2?.data?.candidateName));
       }
 
       await Swal.fire({
@@ -38,6 +41,7 @@ const Login = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="flex h-screen w-screen items-center">
       <div className="w-[60%]">
