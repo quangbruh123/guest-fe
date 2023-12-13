@@ -32,6 +32,7 @@ const JobItem = ({ id, jobName, companyName, salaryMin, salaryMax }) => {
 };
 
 JobItem.propTypes = {
+  id: PropTypes.string,
   jobName: PropTypes.string,
   companyName: PropTypes.string,
   salaryMin: PropTypes.number,

@@ -57,6 +57,7 @@ JobItem.propTypes = {
   salaryMin: PropTypes.number,
   endDate: PropTypes.object,
   pid: PropTypes.string,
+  image: PropTypes.string,
 };
 
 export default JobItem;

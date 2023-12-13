@@ -7,6 +7,7 @@ import useFetchData from "../../../utils/useFetchData";
 import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
 import SelectCustom from "../../../Components/Select";
+import Paginator from "../../../Components/Paginator";
 
 const Homepage = () => {
   const staticData = useSelector(getStaticData);
@@ -24,6 +25,19 @@ const Homepage = () => {
     });
   };
   const { data, isLoading, error } = useFetchData(searchUrl, query);
+  const { post, totalPages } = data;
+  const [page, setPage] = useState(1);
+  const handleChangePage = (num) => {
+    setPage((prev) => {
+      return prev + num;
+    });
+    setQuery((prev) => {
+      return {
+        ...prev,
+        page: page + 1,
+      };
+    });
+  };
 
   return (
     <div className="bg-slate-100">
@@ -126,7 +140,7 @@ const Homepage = () => {
                 </div>
                 <div className="flex flex-col bg-white">
                   <div className="mb-4 grid grid-cols-12 gap-x-4 divide-y divide-dashed">
-                    {data?.map((el) => {
+                    {post?.map((el) => {
                       return (
                         <JobItem
                           key={el.id}
@@ -139,9 +153,12 @@ const Homepage = () => {
                       );
                     })}
                   </div>
-                  <div className="my-4 ml-4 text-red-600">
-                    <Link className="">Xem tất cả việc làm &gt;&gt;</Link>
-                  </div>
+                  <Paginator
+                    currentPage={page}
+                    totalPage={totalPages}
+                    setBackPage={() => handleChangePage(-1)}
+                    setNextPage={() => handleChangePage(1)}
+                  />
                 </div>
               </div>
 

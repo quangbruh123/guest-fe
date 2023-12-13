@@ -190,7 +190,7 @@ const JobDetail = () => {
                 to={`/cong-ty/${data?.Company?.id}`}
               >
                 <div>Xem trang công ty</div>
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <i className="fa-solid fa-arrow-up-right-from-square"></i>
               </Link>
             </div>
 
@@ -255,9 +255,12 @@ const JobDetail = () => {
               </div>
               <div className="text-lg font-bold">Ngành nghề</div>
               <div className="flex flex-wrap gap-2">
-                {data?.Careers?.map((data) => {
+                {data?.Careers?.map((data, index) => {
                   return (
-                    <div className="rounded-lg bg-gray-200 px-2 py-1 text-sm">
+                    <div
+                      className="rounded-lg bg-gray-200 px-2 py-1 text-sm"
+                      key={index}
+                    >
                       {data.careerName}
                     </div>
                   );
