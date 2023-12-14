@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+
+import { dateVN } from "../utils/helper";
 const JobItem = ({
   jobName,
   companyName,
@@ -15,11 +17,11 @@ const JobItem = ({
   if (!salaryMax && !salaryMin) {
     salaryOutput = "Thoả thuận";
   } else if (!salaryMax && salaryMin) {
-    salaryOutput = `từ ${salaryMin}`;
+    salaryOutput = `từ ${salaryMin} triệu`;
   } else if (!salaryMin && salaryMax) {
-    salaryOutput = `tối đa ${salaryMax}`;
+    salaryOutput = `tối đa ${salaryMax} triệu`;
   } else {
-    salaryOutput = `từ ${salaryMin} đến ${salaryMax}`;
+    salaryOutput = `từ ${salaryMin} đến ${salaryMax} triệu`;
   }
   return (
     <div className="my-2 flex w-[100%] border-[1px] border-slate-300 bg-white p-4">
@@ -40,9 +42,7 @@ const JobItem = ({
           <span className="text-slate-500">Lương: {salaryOutput}</span>
           <div className="flex items-center space-x-2">
             <i className="fa-solid fa-clock text-gray-500"></i>
-            <span className="text-slate-500">
-              Hạn nộp: {endDate.toLocaleString()}
-            </span>
+            <span className="text-slate-500">Hạn nộp: {dateVN(endDate)}</span>
           </div>
         </div>
       </div>

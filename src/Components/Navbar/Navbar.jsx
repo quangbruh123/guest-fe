@@ -66,15 +66,18 @@ const Navbar = () => {
               <div className="font-semibold">Xin chào, {username}</div>
               <i class="fa-solid fa-angle-down"></i>
               {hover && (
-                <div className="absolute top-16 w-[280px] overflow-clip rounded-lg bg-white shadow-lg" onMouseLeave={() => {
-                  setHover(false);
-                }}>
+                <div
+                  className="absolute top-16 w-[280px] overflow-clip rounded-lg bg-white shadow-lg"
+                  onMouseLeave={() => {
+                    setHover(false);
+                  }}
+                >
                   <div className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300">
                     <i className="fa-solid fa-user"></i>
                     <div>Thông tin tài khoản</div>
                   </div>
                   <div
-                    className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300"
+                    className="flex cursor-pointer items-center gap-4 px-5 py-4 font-semibold text-red-600 hover:bg-gray-300"
                     onClick={handleLogOut}
                   >
                     <i className="fa-solid fa-right-from-bracket"></i>

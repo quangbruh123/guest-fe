@@ -38,9 +38,7 @@ const Jobpage = () => {
 
   const handleSearch = () => {
     setQuery((prev) => ({
-      salaryMin: null,
-      workingTypeId: null,
-      positionId: null,
+      ...prev,
       jobTitle: jobTitle,
       careerId: careerObject?.value,
     }));
@@ -112,7 +110,7 @@ const Jobpage = () => {
   };
 
   return (
-    <div className="block">
+    <div className="block pb-4">
       <div className="m-auto w-[70rem]">
         <div className="mx-auto mb-12 flex justify-between">
           <div className="flex w-[85%] space-x-2">
@@ -245,16 +243,24 @@ const Jobpage = () => {
                   <span>ĐỊA ĐIỂM</span>
                   <i className="fa-solid fa-chevron-right"></i>
                 </div>
-                <div
-                  className="border-b-[1px] border-gray-300 py-4"
-                  onClick={() => setSalaryToggle((prev) => !prev)}
-                >
+                <div className="border-b-[1px] border-gray-300 py-4">
                   <div className="flex items-center justify-between">
-                    <span>MỨC LƯƠNG</span>
+                    <span
+                      onClick={() => setSalaryToggle((prev) => !prev)}
+                      className="cursor-pointer"
+                    >
+                      MỨC LƯƠNG
+                    </span>
                     {!salaryToggle ? (
-                      <i className="fa-solid fa-chevron-right"></i>
+                      <i
+                        className="fa-solid fa-chevron-right cursor-pointer"
+                        onClick={() => setSalaryToggle((prev) => !prev)}
+                      ></i>
                     ) : (
-                      <i className="fa-solid fa-chevron-down"></i>
+                      <i
+                        className="fa-solid fa-chevron-down cursor-pointer"
+                        onClick={() => setSalaryToggle((prev) => !prev)}
+                      ></i>
                     )}
                   </div>
 
@@ -311,16 +317,24 @@ const Jobpage = () => {
                   </div>
                 </div>
 
-                <div
-                  className="border-b-[1px] border-gray-300 py-4"
-                  onClick={() => setWorkingTypeToggle((prev) => !prev)}
-                >
+                <div className="border-b-[1px] border-gray-300 py-4">
                   <div className="flex items-center justify-between">
-                    <span>HÌNH THỨC LÀM VIỆC</span>
+                    <span
+                      onClick={() => setWorkingTypeToggle((prev) => !prev)}
+                      className="cursor-pointer"
+                    >
+                      HÌNH THỨC LÀM VIỆC
+                    </span>
                     {!workingTypeToggle ? (
-                      <i className="fa-solid fa-chevron-right"></i>
+                      <i
+                        className="fa-solid fa-chevron-right cursor-pointer"
+                        onClick={() => setWorkingTypeToggle((prev) => !prev)}
+                      ></i>
                     ) : (
-                      <i className="fa-solid fa-chevron-down"></i>
+                      <i
+                        className="fa-solid fa-chevron-down cursor-pointer"
+                        onClick={() => setWorkingTypeToggle((prev) => !prev)}
+                      ></i>
                     )}
                   </div>
 
@@ -381,16 +395,24 @@ const Jobpage = () => {
                   </div>
                 </div>
 
-                <div
-                  className="py-4"
-                  onClick={() => setPositionToggle((prev) => !prev)}
-                >
+                <div className="py-4">
                   <div className="flex items-center justify-between">
-                    <span>VỊ TRÍ LÀM VIỆC</span>
+                    <span
+                      onClick={() => setPositionToggle((prev) => !prev)}
+                      className="cursor-pointer"
+                    >
+                      VỊ TRÍ LÀM VIỆC
+                    </span>
                     {!positionToggle ? (
-                      <i className="fa-solid fa-chevron-right"></i>
+                      <i
+                        className="fa-solid fa-chevron-right cursor-pointer"
+                        onClick={() => setPositionToggle((prev) => !prev)}
+                      ></i>
                     ) : (
-                      <i className="fa-solid fa-chevron-down"></i>
+                      <i
+                        className="fa-solid fa-chevron-down cursor-pointer"
+                        onClick={() => setPositionToggle((prev) => !prev)}
+                      ></i>
                     )}
                   </div>
 
