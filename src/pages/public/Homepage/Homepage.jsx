@@ -31,13 +31,16 @@ const Homepage = () => {
     setPage((prev) => {
       return prev + num;
     });
+  };
+
+  useEffect(() => {
     setQuery((prev) => {
       return {
         ...prev,
-        page: page + 1,
+        page: page,
       };
     });
-  };
+  }, [page]);
 
   return (
     <div className="bg-slate-100">

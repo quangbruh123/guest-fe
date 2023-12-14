@@ -29,7 +29,7 @@ const Navbar = () => {
     const response = getCurrentUser().then((data) => {
       console.log(data);
       if (data.status === 200) {
-        dispatch(setUser(data?.data?.candidateName));
+        dispatch(setUser(data?.data));
       }
     });
   }, [accessToken]);
@@ -72,7 +72,10 @@ const Navbar = () => {
                     setHover(false);
                   }}
                 >
-                  <div className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300">
+                  <div
+                    className="flex cursor-pointer items-center gap-4 px-5 py-4 hover:bg-gray-300"
+                    onClick={() => navigate("/user-settings")}
+                  >
                     <i className="fa-solid fa-user"></i>
                     <div>Thông tin tài khoản</div>
                   </div>

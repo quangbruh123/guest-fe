@@ -57,3 +57,16 @@ export const apiLogOut = async () => {
     return error;
   }
 };
+
+export const apiUpdateCandidate = async (payload) => {
+  try {
+    const response = await axiosInstance({
+      method: "post",
+      url: "/auth/update-candidate",
+      withCredentials: true,
+      data: payload,
+    });
+  } catch (error) {
+    return error;
+  }
+};

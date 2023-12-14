@@ -18,6 +18,7 @@ import SignUp from "../pages/public/SignUp";
 import ForgotPassword from "../pages/public/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
 import ResetPassword from "../pages/public/ResetPassword";
+import EditUser from "../pages/private/user/EditUser";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,11 +51,7 @@ const router = createBrowserRouter(
             </PrivateRoute>
           }
         ></Route>
-      </Route>
-      <Route path="/tai-khoan" element={<PrivateRoute></PrivateRoute>}>
-        <Route></Route>
-        <Route></Route>
-        <Route></Route>
+        <Route path="user-settings" element={<EditUser></EditUser>}></Route>
       </Route>
     </>,
   ),

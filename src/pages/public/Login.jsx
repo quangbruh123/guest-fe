@@ -25,10 +25,6 @@ const Login = () => {
       } else {
         dispatch(setAccessToken(""));
       }
-      const response2 = await getCurrentUser();
-      if (response2.status === 200) {
-        dispatch(setUser(response2?.data?.candidateName));
-      }
 
       await Swal.fire({
         text: `Đăng nhập ${
@@ -48,7 +44,7 @@ const Login = () => {
         <div className="mx-auto w-[60%]">
           <div className="mb-5">
             <h2 className="mb-1 text-[22px] font-semibold text-blue-600">
-              Chào mừng bạn quay trở lại
+              Hãy đăng nhập để tiếp tục
             </h2>
             <span className="text-[#6F7882]">
               Cùng nhau xây dựng tương lai việc làm ngay tại Trung tâm giới
