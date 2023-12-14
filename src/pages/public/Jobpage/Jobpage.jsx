@@ -6,9 +6,12 @@ import SelectCustom from "../../../Components/Select";
 import { getStaticData } from "../../../store/staticData";
 import useFetchData from "../../../utils/useFetchData";
 import { SalaryMin } from "./postQuery";
+import { useSearchParams } from "react-router-dom";
 
 const Jobpage = () => {
   const staticData = useSelector(getStaticData);
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   // Query để lấy dữ liệu post
   const [query, setQuery] = useState({
@@ -21,7 +24,7 @@ const Jobpage = () => {
 
   // Phần data post fetch về từ database
   const { data, isLoading, error } = useFetchData("/post/filter", query);
-
+  const { post, totalPages } = data;
   // Các thành phần của state query trên
   const [jobTitle, setJobTitle] = useState("");
   const [careerObject, setCareerObject] = useState(null);
@@ -118,7 +121,6 @@ const Jobpage = () => {
               <span
                 className="text-2xl font-medium"
                 onClick={() => {
-                  console.log(academicLevelList);
                   console.log(workingTypeList);
                   console.log(salaryMinList);
                   console.log(positionList);
@@ -148,7 +150,7 @@ const Jobpage = () => {
               values={staticData?.careers?.map((el) => {
                 return {
                   value: el.id,
-                  label: el.careerName,
+                  label: el.careerNamef,
                 };
               })}
               onChange={setCareerObject}
@@ -176,7 +178,7 @@ const Jobpage = () => {
               </div>
             </div>
 
-            {data?.map((el) => {
+            {post?.map((el) => {
               return (
                 <JobItem
                   key={el.id}
@@ -204,7 +206,10 @@ const Jobpage = () => {
                     {salaryMinList?.map((el, idx) => {
                       if (el.checked) {
                         return (
-                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                          <div
+                            className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm"
+                            key={idx}
+                          >
                             {el.label}
                           </div>
                         );
@@ -213,7 +218,10 @@ const Jobpage = () => {
                     {positionList?.map((el, idx) => {
                       if (el.checked) {
                         return (
-                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                          <div
+                            className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm"
+                            key={idx}
+                          >
                             {el.positionName}
                           </div>
                         );
@@ -222,7 +230,10 @@ const Jobpage = () => {
                     {workingTypeList?.map((el, idx) => {
                       if (el.checked) {
                         return (
-                          <div className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm">
+                          <div
+                            className="w-fit border-[1px] border-gray-200 bg-white px-2 py-1 text-sm"
+                            key={idx}
+                          >
                             {el.workingTypeName}
                           </div>
                         );
@@ -271,6 +282,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,
@@ -293,6 +305,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,
@@ -345,6 +358,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,
@@ -369,6 +383,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,
@@ -423,6 +438,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 font-bold hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,
@@ -445,6 +461,7 @@ const Jobpage = () => {
                             return (
                               <div
                                 className="mt-2 cursor-pointer pl-4 text-gray-500 hover:bg-blue-200"
+                                key={idx}
                                 onClick={() => {
                                   setQuery((prev) => ({
                                     ...prev,

@@ -3,16 +3,43 @@ import JobItem from "../../../Components/Company/JobItem";
 
 import CompanyParagraph from "../../../Components/Company/CompanyParagraph";
 import useFetchData from "../../../utils/useFetchData";
+import { useEffect, useState } from "react";
+import Paginator from "../../../Components/Paginator";
 
 const CompanyDetail = () => {
   const { cid } = useParams();
+  const [query, setQuery] = useState(null);
+  const [jobTitle, setJobTitle] = useState(null);
 
   const { data, isLoading, isError } = useFetchData(
     `/company/${cid}`,
     null,
     "object",
   );
-  console.log(data);
+
+  const { data: objectPost } = useFetchData(`/post/company-post`, query);
+  const { totalPages, posts } = objectPost;
+  const [page, setPage] = useState(1);
+  const handleChangePage = (num) => {
+    setPage((prev) => prev + num);
+  };
+  useEffect(() => {
+    setQuery((prev) => {
+      return {
+        ...prev,
+        page,
+      };
+    });
+  }, [page]);
+
+  useEffect(() => {
+    setQuery((prev) => {
+      return {
+        ...prev,
+        companyId: data.id,
+      };
+    });
+  }, [data]);
 
   let sizeOutput;
   if (!data.companySizeMin && !data.companySizeMax) {
@@ -24,6 +51,16 @@ const CompanyDetail = () => {
   } else {
     sizeOutput = `Từ ${data.companySizeMin} đến ${data.companySizeMax} nhân viên`;
   }
+
+  const handleSearch = (e) => {
+    setQuery((prev) => {
+      return {
+        ...prev,
+        jobTitle,
+      };
+    });
+  };
+
   return (
     <div className="m-auto w-main">
       <div className="cover-inner mb-6 min-h-[358px] rounded-xl bg-gradient-to-r from-[#212f3f] to-blue-700">
@@ -92,7 +129,7 @@ const CompanyDetail = () => {
             </div>
 
             <div className="job-listing">
-              {Array.isArray(data.Posts) && data.Posts?.length > 0 && (
+              {Array.isArray(posts) && posts?.length > 0 && (
                 <>
                   <h2 className="m-0 rounded-t-[10px] bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
                     Tuyển dụng
@@ -107,32 +144,32 @@ const CompanyDetail = () => {
                           type="text"
                           placeholder="Nhập tên công việc"
                           className="flex-1 border-none outline-none"
+                          onChange={(e) => {
+                            setJobTitle(e.target.value);
+                          }}
                         />
                       </div>
                       <div className="col-span-2">
-                        <button className="flex items-center gap-3 rounded-lg bg-blue-700 px-3 py-4 text-base font-normal text-white">
+                        <button
+                          className="flex items-center gap-3 rounded-lg bg-blue-700 px-3 py-4 text-base font-normal text-white"
+                          onClick={handleSearch}
+                        >
                           <i className="fa-solid fa-magnifying-glass"></i>
                           Tìm kiếm
                         </button>
                       </div>
                     </div>
                     <div className="job-list">
-                      {data.Posts?.map((el) => {
-                        console.log(el);
+                      {posts?.map((el) => {
                         return <JobItem key={el.id} jobData={el} />;
                       })}
                     </div>
-                    <div className="mt-5 flex justify-center gap-6">
-                      <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
-                        <i className="fa-solid fa-chevron-left"></i>
-                      </button>
-
-                      <span className="text-xl text-[#ccc]">1/3 trang</span>
-
-                      <button className=" font-xl rounded-full border-blue-dam text-blue-dam outline-none">
-                        <i className="fa-solid fa-chevron-right"></i>
-                      </button>
-                    </div>
+                    <Paginator
+                      currentPage={page}
+                      totalPage={totalPages}
+                      setBackPage={() => handleChangePage(-1)}
+                      setNextPage={() => handleChangePage(1)}
+                    />
                   </div>
                 </>
               )}
