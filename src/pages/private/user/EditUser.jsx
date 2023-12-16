@@ -1,41 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { getStaticData } from "../../../store/staticData";
-import { getUserInfo } from "../../../store/authReducer";
+import { getUserInfo, setUser } from "../../../store/authReducer";
+import { apiUpdateCandidate, getCurrentUser } from "../../../apis/auth";
 
 const EditUser = () => {
   const navigate = useNavigate();
   const staticData = useSelector(getStaticData);
   const userInfos = useSelector(getUserInfo);
-  console.log(userInfos);
 
   const [userInfo, setUserInfo] = useState({
     civilId: userInfos?.civilId, //
-    candidateName: "", //
-    age: "", //
+    candidateName: userInfos?.candidateName, //
+    age: userInfos?.age, //
     profileImage: "",
     cvImage: "",
-    phoneNumber: "", //
-    email: "", //
-    fullAddress: "", //
-    province: "",
-    district: "",
-    ward: "",
-    gender: null, //
-    experienceYear: null, //
-    academicLevelId: null,
-    positionId: null,
-    careerList: [],
+    phoneNumber: userInfos?.phoneNumber, //
+    email: userInfos?.email, //
+    fullAddress: userInfos?.fullAddress, //
+    province: userInfos?.province,
+    district: userInfos?.district,
+    ward: userInfos?.ward,
+    gender: userInfos?.gender, //
+    experienceYear: userInfos?.experienceYear, //
+    academicLevelId: userInfos?.academicLevelId,
+    positionId: userInfos?.positionId,
+    careerList: userInfos?.Careers?.map((el, idx) => {
+      return el.id;
+    }),
   });
 
-  const [wards, setWards] = useState([]);
+  useEffect(() => {
+    const res = staticData?.districts?.find((el) => {
+      return el.name == userInfo.district;
+    });
+    setWards(res?.wards);
+  }, [userInfo, staticData]);
 
-  const [isCVLoading, setIsCVLoading] = useState(false);
-  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [wards, setWards] = useState([]);
 
   const handleChangeUserInfo = (e) => {
     const value = e.target.value;
@@ -43,6 +51,37 @@ const EditUser = () => {
       ...prev,
       [e.target.name]: value,
     }));
+  };
+
+  const handleUpdateUserInformation = async () => {
+    toast.loading("Đang xử lý thông tin");
+    const formData = new FormData();
+    Object.entries(userInfo).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    const response = apiUpdateCandidate(userInfo).then((responses) => {
+      console.log(responses);
+      toast.dismiss();
+      if (responses.status == 204) {
+        const user = getCurrentUser().then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            dispatch(setUser(data?.data));
+          }
+        });
+        Swal.fire({
+          text: `Sửa thông tin thành công`,
+          icon: "success",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(-1);
+          }
+        });
+      } else {
+        toast.error(`Có lỗi xảy ra. Mã lỗi: ${responses.status}`);
+      }
+    });
   };
 
   return (
@@ -96,6 +135,11 @@ const EditUser = () => {
                       { value: false, label: "Nam" },
                       { value: true, label: "Nữ" },
                     ]}
+                    defaultValue={
+                      userInfo.gender
+                        ? { value: true, label: "Nữ" }
+                        : { value: false, label: "Nam" }
+                    }
                     onChange={(e) =>
                       setUserInfo((prev) => ({
                         ...prev,
@@ -205,6 +249,9 @@ const EditUser = () => {
                         padding: 6,
                       }),
                     }}
+                    defaultValue={{
+                      label: "Thành phố Hồ Chí Minh",
+                    }}
                     name="province"
                     placeholder="Tỉnh thành..."
                     options={[
@@ -242,6 +289,7 @@ const EditUser = () => {
                         wards: [...el.wards],
                       };
                     })}
+                    defaultValue={{ label: userInfo?.district }}
                     onChange={(e) => {
                       setUserInfo((prev) => ({
                         ...prev,
@@ -271,6 +319,7 @@ const EditUser = () => {
                         label: el.name,
                       };
                     })}
+                    defaultValue={{ label: userInfo?.ward }}
                     onChange={(e) => {
                       setUserInfo((prev) => ({
                         ...prev,
@@ -318,6 +367,12 @@ const EditUser = () => {
                         label: data.academicLevelName,
                       };
                     })}
+                    defaultValue={{
+                      label:
+                        staticData?.academicLevels[
+                          userInfo?.academicLevelId - 1
+                        ].academicLevelName,
+                    }}
                     onChange={(e) => {
                       setSignUpInfo((prev) => ({
                         ...prev,
@@ -349,6 +404,11 @@ const EditUser = () => {
                         label: data.positionName,
                       };
                     })}
+                    defaultValue={{
+                      label:
+                        staticData?.positions[userInfo?.positionId - 1]
+                          .positionName,
+                    }}
                     onChange={(e) => {
                       setUserInfo((prev) => ({
                         ...prev,
@@ -377,6 +437,12 @@ const EditUser = () => {
                       return {
                         value: data.id,
                         label: data.careerName,
+                      };
+                    })}
+                    defaultValue={userInfos?.Careers?.map((el, idx) => {
+                      return {
+                        value: el.id,
+                        label: el.careerName,
                       };
                     })}
                     onChange={(e) => {
@@ -412,6 +478,7 @@ const EditUser = () => {
                         cvImage: e.target.files[0],
                       }));
                     }}
+                    accept="image/*"
                   ></input>
                 </div>
               </div>
@@ -440,12 +507,13 @@ const EditUser = () => {
                         profileImage: e.target.files[0],
                       }));
                     }}
+                    accept="image/*"
                   ></input>
                 </div>
               </div>
               <img
                 src={
-                  userInfo.cvImage
+                  userInfo.profileImage
                     ? URL.createObjectURL(userInfo.profileImage)
                     : ""
                 }
@@ -456,6 +524,8 @@ const EditUser = () => {
               className="mb-5 flex w-[10%] items-center justify-center rounded-md bg-blue-600 text-white"
               onClick={() => {
                 console.log(userInfo);
+                console.log(userInfos);
+                handleUpdateUserInformation();
               }}
             >
               <button className="w-full py-2 font-semibold">Lưu</button>
@@ -466,6 +536,7 @@ const EditUser = () => {
           <div className="rounded-lg bg-white p-5">Hình ứng viên</div>
         </div>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
