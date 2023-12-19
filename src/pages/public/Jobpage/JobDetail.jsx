@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import JobDetailItem from "./JobDetailItem";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 import { postAPI } from "../../../apis";
@@ -10,6 +10,7 @@ import Comment from "./Comment";
 import { apiGetPostComment, apiCreateComment } from "../../../apis/comment";
 
 const JobDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [career, setCareer] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
@@ -119,7 +120,10 @@ const JobDetail = () => {
                   <i className="fa-solid fa-clock"></i>
                   <div>Hạn nộp hồ sơ: {dateVN(data?.endDate)}</div>
                 </div>
-                <div className="flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white">
+                <div
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white"
+                  onClick={() => navigate("./apply")}
+                >
                   <i className="fa-solid fa-paper-plane"></i>
                   <div>Ứng tuyển ngay</div>
                 </div>

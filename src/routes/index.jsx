@@ -19,6 +19,7 @@ import ForgotPassword from "../pages/public/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
 import ResetPassword from "../pages/public/ResetPassword";
 import EditUser from "../pages/private/user/EditUser";
+import ApplyPost from "../pages/private/apply/applyPost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,8 @@ const router = createBrowserRouter(
       <Route path="/" element={<PublicLayout />}>
         <Route index element={<Homepage />}></Route>
         <Route path="news" element={<News />}></Route>
+
+        {/* Route của công ty */}
         <Route path="cong-ty" element={<Companies />}></Route>
         <Route
           path="cong-ty/:cid"
@@ -42,12 +45,23 @@ const router = createBrowserRouter(
             </PrivateRoute>
           }
         ></Route>
+
+        {/* Route của bài tuyển dụng */}
         <Route path="jobs" element={<Jobpage></Jobpage>}></Route>
+        <Route path="jobs/:id" element={<Jobpage></Jobpage>}></Route>
         <Route
           path="jobs/detail/:id"
           element={
             <PrivateRoute>
               <JobDetail></JobDetail>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="jobs/detail/:id/apply"
+          element={
+            <PrivateRoute>
+              <ApplyPost></ApplyPost>
             </PrivateRoute>
           }
         ></Route>

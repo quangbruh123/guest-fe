@@ -43,7 +43,7 @@ const Homepage = () => {
   }, [page]);
 
   return (
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 pb-6">
       {/* <img
         src="https://sieuthivieclam.vn/templates/sieuthivieclam/images/banner-top.jpg"
         alt=""
@@ -129,7 +129,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-6 h-[1000px] w-[85rem]">
+        <div className="mx-auto mt-6 h-[920px] w-[85rem]">
           <div className="ml-[-15px] mr-[-15px] w-[100%]">
             <div className="flex">
               <div className="w-[70%] pr-2">
@@ -167,34 +167,34 @@ const Homepage = () => {
 
               <div className="w-[30%]">
                 <div className="border-[1px] border-gray-300 bg-white">
-                  <h2 className="border-b-[1px] border-gray-300 px-7 py-6 text-xl font-bold">
+                  <h2 className="border-b-[1px] border-gray-300 bg-gradient-to-r from-blue-700 to-blue-500 px-7 py-6 text-xl font-bold text-white">
                     DANH MỤC
                   </h2>
                   <div></div>
                   <div className="px-7">
                     <NavLink to={"/jobs"}>
-                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6 hover:font-bold">
                         <span>TẤT CẢ VIỆC LÀM</span>
                         <i className="fa-solid fa-chevron-right"></i>
                       </div>
                     </NavLink>
 
                     <NavLink to={"/viec-lam"}>
-                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6 hover:font-bold">
                         <span>NHÀ TUYỂN DỤNG</span>
                         <i className="fa-solid fa-chevron-right"></i>
                       </div>
                     </NavLink>
 
                     <NavLink>
-                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6">
+                      <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-6 hover:font-bold">
                         <span>GIỚI THIỆU</span>
                         <i className="fa-solid fa-chevron-right"></i>
                       </div>
                     </NavLink>
 
                     <NavLink to={"/news"}>
-                      <div className="flex items-center justify-between py-6">
+                      <div className="flex items-center justify-between py-6 hover:font-bold">
                         <span>TIN TỨC - SỰ KIỆN</span>
                         <i className="fa-solid fa-chevron-right"></i>
                       </div>
@@ -206,8 +206,8 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-3 w-[85rem]">
-          <h2 className="mb-8 text-2xl leading-7">VIỆC THEO NGÀNH NGHỀ</h2>
+        {/* <div className="mx-auto mt-3 w-[85rem]">
+          <h2 className="mb-8 text-2xl leading-7">VIỆC LÀM GỢI Ý</h2>
           <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
             {staticData?.careers?.map((el) => {
               return (
@@ -217,6 +217,137 @@ const Homepage = () => {
                 ></JobCategories>
               );
             })}
+          </div>
+        </div> */}
+
+        <div className="mt-3 w-full bg-white">
+          <div className="mx-auto w-[85rem] pt-8">
+            <h2 className="mb-1 text-2xl font-bold leading-7 text-blue-600">
+              Top ngành nghề nổi bật
+            </h2>
+            <div className="mb-8 flex gap-1">
+              <div className="text-gray-400">
+                Bạn muốn tìm việc mới? Xem danh sách việc làm
+              </div>
+              <Link
+                className="text-blue-500 underline hover:font-semibold"
+                to="/jobs"
+              >
+                tại đây
+              </Link>
+            </div>
+            <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
+              <JobCategories
+                jobName="CNTT - Phần mềm"
+                careerId={3}
+                icon="fa-solid fa-laptop-code"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Du lịch"
+                careerId={40}
+                icon="fa-solid fa-person-walking-luggage"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Hành chính / Văn phòng"
+                careerId={16}
+                icon="fa-solid fa-briefcase"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Quản lý chất lượng (QA/QC)"
+                careerId={23}
+                icon="fa-solid fa-bug"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Kinh doanh"
+                careerId={30}
+                icon="fa-solid fa-tags"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Giáo dục / Đào tạo"
+                careerId={37}
+                icon="fa-solid fa-graduation-cap"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="CNTT - Phần cứng / Mạng"
+                careerId={43}
+                icon="fa-solid fa-microchip"
+              ></JobCategories>
+
+              <JobCategories
+                jobName="Kế toán / Kiểm toán"
+                careerId={46}
+                icon="fa-solid fa-calculator"
+              ></JobCategories>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-3 w-[85rem]">
+          <h2 className="mb-1 text-2xl font-bold leading-7 text-blue-600">
+            Các công việc liên quan
+          </h2>
+          <div className="mb-8 flex gap-1">
+            <div className="text-gray-400">
+              Bạn muốn tìm việc mới? Xem danh sách việc làm
+            </div>
+            <Link className="text-blue-500 underline hover:font-semibold">
+              tại đây
+            </Link>
+          </div>
+          <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
+            <JobCategories
+              jobName="CNTT - Phần mềm"
+              careerId={3}
+              icon="fa-solid fa-laptop-code"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Du lịch"
+              careerId={40}
+              icon="fa-solid fa-person-walking-luggage"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Hành chính / Văn phòng"
+              careerId={16}
+              icon="fa-solid fa-briefcase"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Quản lý chất lượng (QA/QC)"
+              careerId={23}
+              icon="fa-solid fa-bug"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Kinh doanh"
+              careerId={30}
+              icon="fa-solid fa-tags"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Giáo dục / Đào tạo"
+              careerId={37}
+              icon="fa-solid fa-graduation-cap"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="CNTT - Phần cứng / Mạng"
+              careerId={43}
+              icon="fa-solid fa-microchip"
+            ></JobCategories>
+
+            <JobCategories
+              jobName="Kế toán / Kiểm toán"
+              careerId={46}
+              icon="fa-solid fa-calculator"
+            ></JobCategories>
           </div>
         </div>
       </div>

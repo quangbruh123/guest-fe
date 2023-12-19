@@ -6,9 +6,10 @@ import SelectCustom from "../../../Components/Select";
 import { getStaticData } from "../../../store/staticData";
 import useFetchData from "../../../utils/useFetchData";
 import { SalaryMin } from "./postQuery";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Jobpage = () => {
+  const { id } = useParams();
   const staticData = useSelector(getStaticData);
 
   let [searchParams, setSearchParams] = useSearchParams();
@@ -16,7 +17,7 @@ const Jobpage = () => {
   // Query để lấy dữ liệu post
   const [query, setQuery] = useState({
     jobTitle: "",
-    careerId: "",
+    careerId: id ? id : "",
     salaryMin: null,
     workingTypeId: null,
     positionId: null,
@@ -150,7 +151,7 @@ const Jobpage = () => {
               values={staticData?.careers?.map((el) => {
                 return {
                   value: el.id,
-                  label: el.careerNamef,
+                  label: el.careerName,
                 };
               })}
               onChange={setCareerObject}
@@ -250,15 +251,19 @@ const Jobpage = () => {
               ) : null}
 
               <div className="px-7">
-                <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
+                {/* <div className="flex items-center justify-between border-b-[1px] border-gray-300 py-4">
                   <span>ĐỊA ĐIỂM</span>
                   <i className="fa-solid fa-chevron-right"></i>
-                </div>
+                </div> */}
                 <div className="border-b-[1px] border-gray-300 py-4">
                   <div className="flex items-center justify-between">
                     <span
                       onClick={() => setSalaryToggle((prev) => !prev)}
-                      className="cursor-pointer"
+                      className={
+                        salaryToggle
+                          ? "cursor-pointer font-bold"
+                          : "cursor-pointer hover:font-bold"
+                      }
                     >
                       MỨC LƯƠNG
                     </span>
@@ -334,7 +339,11 @@ const Jobpage = () => {
                   <div className="flex items-center justify-between">
                     <span
                       onClick={() => setWorkingTypeToggle((prev) => !prev)}
-                      className="cursor-pointer"
+                      className={
+                        workingTypeToggle
+                          ? "cursor-pointer font-bold"
+                          : "cursor-pointer hover:font-bold"
+                      }
                     >
                       HÌNH THỨC LÀM VIỆC
                     </span>
@@ -414,7 +423,11 @@ const Jobpage = () => {
                   <div className="flex items-center justify-between">
                     <span
                       onClick={() => setPositionToggle((prev) => !prev)}
-                      className="cursor-pointer"
+                      className={
+                        positionToggle
+                          ? "cursor-pointer font-bold"
+                          : "cursor-pointer hover:font-bold"
+                      }
                     >
                       VỊ TRÍ LÀM VIỆC
                     </span>
