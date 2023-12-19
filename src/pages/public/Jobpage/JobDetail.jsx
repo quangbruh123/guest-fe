@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
 import JobDetailItem from "./JobDetailItem";
 import { Link, useParams } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
 import { postAPI } from "../../../apis";
 import useFetchData from "../../../utils/useFetchData";
 import { dateVN } from "../../../utils/helper";
 import Comment from "./Comment";
+import { apiGetPostComment, apiCreateComment } from "../../../apis/comment";
 
 const JobDetail = () => {
   const { id } = useParams();
   const [career, setCareer] = useState([]);
   const [relatedPost, setRelatedPost] = useState([]);
+  const [comments, setComments] = useState([]);
+
+  const [cmtInput, setCmtInput] = useState({
+    postId: id,
+    commentText: "",
+    rating: null,
+  });
 
   const { data, isLoading, isError } = useFetchData(
     `/post/${id}`,
     null,
     "object",
   );
-  console.log(data);
   let salaryOutput;
   if (!data?.salaryMax && !data?.salaryMin) {
     salaryOutput = "Thoả thuận";
@@ -43,18 +51,28 @@ const JobDetail = () => {
   useEffect(() => {
     const temp = data?.Careers;
     setCareer(temp);
+    const response = apiGetPostComment(id).then((data) => {
+      console.log(data);
+      setComments(data?.data);
+    });
   }, []);
 
-  // useEffect(() => {
-  //   if (career) {
-  //     const temp = [career[2].id];
-  //     const response = postAPI
-  //       .apiGetRelatedPost(data?.id, temp)
-  //       .then((data) => {
-  //         console.log(data);
-  //       });
-  //   }
-  // }, [career]);
+  const handleChangeRating = (newRating) => {
+    setCmtInput((prev) => ({
+      ...prev,
+      rating: newRating,
+    }));
+  };
+
+  const handleComment = () => {
+    const response = apiCreateComment(cmtInput).then((data) => {
+      console.log(data);
+      const getComment = apiGetPostComment(id).then((data) => {
+        console.log(data);
+        setComments(data?.data);
+      });
+    });
+  };
 
   return (
     <div className="block pb-10">
@@ -125,17 +143,12 @@ const JobDetail = () => {
             </div>
             <div className="mb-4 bg-white">
               <div className="m-0 rounded-tl-lg rounded-tr-lg bg-gradient-to-r from-[#212f3f] to-blue-700 px-5 py-3 text-lg font-semibold text-white">
-                Bình luận người dùng (8)
+                Bình luận người dùng ({comments.length})
               </div>
               <div className="px-5 py-4">
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
-                <Comment></Comment>
+                {comments?.map((data) => {
+                  return <Comment info={data}></Comment>;
+                })}
               </div>
               <div className="px-5 pb-4 text-lg font-semibold">
                 Viết bình luận
@@ -144,13 +157,25 @@ const JobDetail = () => {
                 <div className="flex h-[40px] w-[40px] items-center justify-center rounded-[50%] bg-gradient-to-b from-blue-700 to-blue-500 text-white">
                   <i className="fa-solid fa-user"></i>
                 </div>
-                <div className="h-[100px] w-[85%]">
-                  <input
-                    type="text"
-                    className="h-[100%] w-[100%] border-[1px] border-slate-200"
-                  ></input>
+                <div className="h-fit w-[85%]">
+                  <textarea
+                    className="h-[100%] w-[100%] border-[1px] border-slate-200 p-2"
+                    onChange={(e) => {
+                      setCmtInput((prev) => ({
+                        ...prev,
+                        commentText: e.target.value,
+                      }));
+                    }}
+                  ></textarea>
+                  <div className="flex gap-2 text-base">
+                    <span>Đánh giá: </span>
+                    <ReactStars onChange={handleChangeRating}></ReactStars>
+                  </div>
                 </div>
-                <div className="cursor-pointer rounded-lg bg-blue-600 px-2 py-1 font-medium text-white hover:bg-blue-500">
+                <div
+                  className="cursor-pointer rounded-lg bg-blue-600 px-2 py-1 font-medium text-white hover:bg-blue-500"
+                  onClick={handleComment}
+                >
                   Gửi
                 </div>
               </div>
