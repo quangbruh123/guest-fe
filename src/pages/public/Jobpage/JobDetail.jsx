@@ -121,8 +121,8 @@ const JobDetail = () => {
                   <div>Hạn nộp hồ sơ: {dateVN(data?.endDate)}</div>
                 </div>
                 <div
-                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white"
-                  onClick={() => navigate("./apply")}
+                  className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-500"
+                  onClick={() => navigate(`./apply`)}
                 >
                   <i className="fa-solid fa-paper-plane"></i>
                   <div>Ứng tuyển ngay</div>

@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
+import { apiGetPostNumber } from "../../../apis/career";
+
 const JobCategories = ({ jobName, careerId, icon }) => {
   const navigate = useNavigate();
+  const [number, setNumber] = useState(null);
+  useEffect(() => {
+    const response = apiGetPostNumber().then((data) => {
+      console.log(data);
+      setNumber(data.data.categories[careerId - 1].PostCount);
+    });
+  }, []);
   return (
     <div className="col-span-3 overflow-hidden px-3 pb-5">
       <div
@@ -17,7 +26,10 @@ const JobCategories = ({ jobName, careerId, icon }) => {
           ></i>
         </div>
         <div className="text-lg font-semibold">{jobName}</div>
-        <div className="text-blue-600">( công việc )</div>
+        <div className="flex gap-1 text-blue-600">
+          <div className="font-semibold">{number}</div>
+          <div>công việc</div>
+        </div>
       </div>
     </div>
   );

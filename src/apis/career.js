@@ -23,3 +23,15 @@ export const apiGetPostsFromCareer = async (id) => {
     return error;
   }
 };
+
+export const apiGetPostNumber = async () => {
+  try {
+    const response = await axiosInstance({
+      method: "get",
+      url: "/career/count-career",
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

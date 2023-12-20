@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import { getUserInfo, setUser } from "../../../store/authReducer";
 import { apiUpdateCandidate, getCurrentUser } from "../../../apis/auth";
 
 const EditUser = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const staticData = useSelector(getStaticData);
   const userInfos = useSelector(getUserInfo);
@@ -19,8 +20,8 @@ const EditUser = () => {
     civilId: userInfos?.civilId, //
     candidateName: userInfos?.candidateName, //
     age: userInfos?.age, //
-    profileImage: "",
-    cvImage: "",
+    profileImage: userInfos.profileImage,
+    cvImage: userInfos.cvImage,
     phoneNumber: userInfos?.phoneNumber, //
     email: userInfos?.email, //
     fullAddress: userInfos?.fullAddress, //
@@ -463,7 +464,12 @@ const EditUser = () => {
             <div className="mb-5 w-[100%] space-y-2">
               <div className="w-1/2 space-y-2">
                 <div className="flex gap-1">
-                  <label className="">Ảnh CV</label>
+                  <label
+                    className=""
+                    onClick={() => console.log(userInfo.cvImage)}
+                  >
+                    Ảnh CV
+                  </label>
                   <div className="font-medium text-red-500">*</div>
                 </div>
                 <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
@@ -484,7 +490,9 @@ const EditUser = () => {
               </div>
               <img
                 src={
-                  userInfo.cvImage ? URL.createObjectURL(userInfo.cvImage) : ""
+                  typeof userInfo.cvImage == "string"
+                    ? userInfo.cvImage
+                    : URL.createObjectURL(userInfo.cvImage)
                 }
               ></img>
             </div>
@@ -513,9 +521,9 @@ const EditUser = () => {
               </div>
               <img
                 src={
-                  userInfo.profileImage
-                    ? URL.createObjectURL(userInfo.profileImage)
-                    : ""
+                  typeof userInfo.profileImage == "string"
+                    ? userInfo.profileImage
+                    : URL.createObjectURL(userInfo.profileImage)
                 }
               ></img>
             </div>

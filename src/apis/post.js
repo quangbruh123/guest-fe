@@ -119,3 +119,19 @@ export const apiGetDeletedPost = async () => {
     console.log(error);
   }
 };
+
+export const apiApplyPostByCandidate = async (id) => {
+  try {
+    const response = await axiosInstance({
+      method: "get",
+      url: "/post/apply-post",
+      params: {
+        postId: id,
+      },
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
