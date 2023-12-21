@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import JobItem from "../../../Components/JobItem";
 import SelectCustom from "../../../Components/Select";
 import { getStaticData } from "../../../store/staticData";
 import useFetchData from "../../../utils/useFetchData";
 import { SalaryMin } from "./postQuery";
-import { useParams, useSearchParams } from "react-router-dom";
+import Paginator from "../../../Components/Paginator";
 
 const Jobpage = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const Jobpage = () => {
 
   // Phần data post fetch về từ database
   const { data, isLoading, error } = useFetchData("/post/filter", query);
-  const { post, totalPages } = data;
+  const { post, totalPages, postNumber } = data;
   // Các thành phần của state query trên
   const [jobTitle, setJobTitle] = useState("");
   const [careerObject, setCareerObject] = useState(null);
@@ -39,6 +40,23 @@ const Jobpage = () => {
   const [salaryToggle, setSalaryToggle] = useState(false);
   const [workingTypeToggle, setWorkingTypeToggle] = useState(false);
   const [positionToggle, setPositionToggle] = useState(false);
+
+  // State cho số trang (page)
+  const [page, setPage] = useState(1);
+  const handleChangePage = (num) => {
+    setPage((prev) => {
+      return prev + num;
+    });
+  };
+
+  useEffect(() => {
+    setQuery((prev) => {
+      return {
+        ...prev,
+        page: page,
+      };
+    });
+  }, [page]);
 
   const handleSearch = () => {
     setQuery((prev) => ({
@@ -169,7 +187,10 @@ const Jobpage = () => {
         <div className="mx-auto flex space-x-2">
           <div className="w-[70%] pr-2">
             <div className="flex items-center justify-between border-[1px] border-slate-300 bg-white p-4">
-              <span>Bind số lượng tại đây</span>
+              <div className="flex gap-1 font-semibold">
+                <div className="text-orange-600">{postNumber}</div>
+                <div>việc đang tuyển dụng</div>
+              </div>
               <div className="flex items-center">
                 <span className="mr-2 text-slate-500">Sắp xếp theo:</span>
                 <select className="rounded-md border-[1px] border-slate-300 p-1 text-slate-500">
@@ -193,6 +214,12 @@ const Jobpage = () => {
                 />
               );
             })}
+            <Paginator
+              currentPage={page}
+              totalPage={totalPages}
+              setBackPage={() => handleChangePage(-1)}
+              setNextPage={() => handleChangePage(1)}
+            />
           </div>
 
           <div className="w-[30%]">

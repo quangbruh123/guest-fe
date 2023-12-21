@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
 import SelectCustom from "../../../Components/Select";
 import Paginator from "../../../Components/Paginator";
+import { apiGetRelatedPost } from "../../../apis/post";
 
 const Homepage = () => {
   const staticData = useSelector(getStaticData);
@@ -32,6 +33,14 @@ const Homepage = () => {
       return prev + num;
     });
   };
+
+  useEffect(() => {
+    const arr = [3];
+    const postId = "80670fbb-d471-4d1b-8749-407b9d84b4bb";
+    const response = apiGetRelatedPost(postId, arr).then((data) => {
+      console.log(data);
+    });
+  }, []);
 
   useEffect(() => {
     setQuery((prev) => {
@@ -296,7 +305,10 @@ const Homepage = () => {
             <div className="text-gray-400">
               Bạn muốn tìm việc mới? Xem danh sách việc làm
             </div>
-            <Link className="text-blue-500 underline hover:font-semibold">
+            <Link
+              className="text-blue-500 underline hover:font-semibold"
+              to="/jobs"
+            >
               tại đây
             </Link>
           </div>

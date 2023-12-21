@@ -10,7 +10,6 @@ const JobCategories = ({ jobName, careerId, icon }) => {
   const [number, setNumber] = useState(null);
   useEffect(() => {
     const response = apiGetPostNumber().then((data) => {
-      console.log(data);
       setNumber(data.data.categories[careerId - 1].PostCount);
     });
   }, []);

@@ -7,6 +7,7 @@ import { postAPI } from "../../../apis";
 import useFetchData from "../../../utils/useFetchData";
 import { dateVN } from "../../../utils/helper";
 import Comment from "./Comment";
+import { apiGetRelatedPost } from "../../../apis/post";
 import { apiGetPostComment, apiCreateComment } from "../../../apis/comment";
 
 const JobDetail = () => {
@@ -27,6 +28,7 @@ const JobDetail = () => {
     null,
     "object",
   );
+
   let salaryOutput;
   if (!data?.salaryMax && !data?.salaryMin) {
     salaryOutput = "Thoả thuận";
@@ -50,13 +52,23 @@ const JobDetail = () => {
   }
 
   useEffect(() => {
-    const temp = data?.Careers;
-    setCareer(temp);
     const response = apiGetPostComment(id).then((data) => {
-      console.log(data);
       setComments(data?.data);
     });
   }, []);
+
+  useEffect(() => {
+    setCareer(data?.Careers);
+  }, [data]);
+
+  useEffect(() => {
+    const temp = career?.map((el) => {
+      return el.id;
+    });
+    const relate = apiGetRelatedPost(id, temp).then((data) => {
+      setRelatedPost(data?.data);
+    });
+  }, [career]);
 
   const handleChangeRating = (newRating) => {
     setCmtInput((prev) => ({
@@ -303,12 +315,24 @@ const JobDetail = () => {
               </div>
 
               <div className="">
-                <JobDetailItem></JobDetailItem>
-                <JobDetailItem></JobDetailItem>
-                <JobDetailItem></JobDetailItem>
-                <JobDetailItem></JobDetailItem>
-                <JobDetailItem></JobDetailItem>
-                <JobDetailItem></JobDetailItem>
+                {relatedPost ? (
+                  relatedPost?.slice(0, 5).map((el) => {
+                    console.log(el);
+                    return (
+                      <JobDetailItem
+                        jobName={el.jobTitle}
+                        companyName={el.Company.companyName}
+                        salaryMax={el.salaryMax}
+                        salaryMin={el.salaryMin}
+                        imageLink={el.Company.imageLink}
+                        postId={el.id}
+                        district={el.Company.district}
+                      ></JobDetailItem>
+                    );
+                  })
+                ) : (
+                  <div>Không có</div>
+                )}
               </div>
             </div>
           </div>
