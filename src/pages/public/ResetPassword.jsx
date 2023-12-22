@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { apiResetPassword } from "../../apis/auth";
 const ResetPassword = () => {
   const location = useLocation();
@@ -18,7 +21,9 @@ const ResetPassword = () => {
   const [rePassword, setRePassword] = useState(null);
 
   const handleChangePassword = async () => {
+    toast.loading("Đang xử lý thông tin...");
     if (newPassword !== rePassword) {
+      toast.dismiss();
       await Swal.fire({
         title: "Error",
         text: "Mật khẩu và mật khẩu nhập lại không trùng khớp.",
@@ -35,6 +40,7 @@ const ResetPassword = () => {
       isUser: true,
     });
     if (response.status === 204) {
+      toast.dismiss();
       await Swal.fire({
         title: "Thành công",
         text: "Bạn đã cập nhật thành công",
@@ -43,6 +49,7 @@ const ResetPassword = () => {
       }),
         navigate("/dang-nhap");
     } else {
+      toast.dismiss();
       await Swal.fire({
         title: "Có lỗi xảy ra",
         text: response.response.data.msg || "Chưa xác định",
@@ -117,6 +124,7 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

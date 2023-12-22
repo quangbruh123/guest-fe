@@ -15,7 +15,7 @@ export const apiLogin = async (payload) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 

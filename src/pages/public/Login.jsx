@@ -20,19 +20,24 @@ const Login = () => {
     console.log(username, password);
     try {
       const response = await apiLogin({ username, password, roleId: 2 });
+      console.log(response);
       if (response.status === 200) {
         dispatch(setAccessToken(response?.data?.accessToken));
+        Swal.fire({
+          title: "Đăng nhập thành công",
+          icon: "success",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
+        });
       } else {
         dispatch(setAccessToken(""));
+        Swal.fire({
+          title: `Đăng nhập thất bại: ${response.response.data.msg}`,
+          icon: "error",
+        });
       }
-
-      await Swal.fire({
-        text: `Đăng nhập ${
-          response?.status === 200 ? "Thành công" : "Thất bại"
-        }`,
-        icon: `${response?.status === 200 ? "success" : "error"}`,
-      });
-      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +83,7 @@ const Login = () => {
           <div className="mb-5 flex w-[100%] justify-end">
             <NavLink
               className="font-[450] text-blue-600 hover:underline"
-              to="/quen-mat-khau"
+              to="/reset-password"
             >
               Quên mật khẩu
             </NavLink>

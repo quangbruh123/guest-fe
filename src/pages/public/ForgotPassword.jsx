@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import LoginImg from "../../assets/login-img.svg";
 import { Link, NavLink } from "react-router-dom";
-import isEmail from "../../utils/checkEmail";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import isEmail from "../../utils/checkEmail";
+import LoginImg from "../../assets/login-img.svg";
 import { apiForgetPassword } from "../../apis/auth";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const handleClick = async () => {
+    toast.loading("Đang xử lý yêu cầu...");
     if (!isEmail(email)) {
+      toast.dismiss();
       await Swal.fire({
         title: "Error",
         text: "Vui lòng nhập đúng mật khẩu",
@@ -19,12 +24,14 @@ const ForgotPassword = () => {
     const response = await apiForgetPassword({ email, isUser: true });
 
     if (response.status === 200) {
+      toast.dismiss();
       await Swal.fire({
         title: "Thành công",
         text: "Đã gửi email xác nhận vui lòng kiểm tra, thời hạn 15 phút",
         icon: "success",
       });
     } else {
+      toast.dismiss();
       await Swal.fire({
         title: "Có lỗi xảy ra",
         text: response.response.data.msg || "Chưa xác định",
@@ -78,6 +85,7 @@ const ForgotPassword = () => {
       <div className="h-screen w-[40%]">
         <img src={LoginImg} className="h-[100%] w-[100%] object-cover"></img>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

@@ -328,7 +328,18 @@ const Homepage = () => {
           <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
             {relateJob.length != 0
               ? relateJob.map((el) => {
-                  return <RelateJob></RelateJob>;
+                  return (
+                    <RelateJob
+                      key={el.id}
+                      id={el.id}
+                      jobTitle={el.jobTitle}
+                      district={el.Company.district}
+                      companyName={el.Company.companyName}
+                      salaryMax={el.salaryMax}
+                      salaryMin={el.salaryMin}
+                      imageLink={el.Company.imageLink}
+                    ></RelateJob>
+                  );
                 })
               : null}
           </div>
