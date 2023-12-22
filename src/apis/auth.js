@@ -97,3 +97,30 @@ export const apiUpdateCandidate = async (payload) => {
 // } catch (error) {
 //   console.log(error);
 // }
+
+export const apiForgetPassword = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "http://localhost:5000/api/v1/auth/forgot-password",
+      payload,
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const apiResetPassword = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "http://localhost:5000/api/v1/auth/reset-token",
+      payload,
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

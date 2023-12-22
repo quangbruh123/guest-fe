@@ -1,7 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { apiResetPassword } from "../../apis/auth";
 const ResetPassword = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  // Lấy object chứa tất cả các thông tin về query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const email = queryParams.get("email");
+  const resetToken = queryParams.get("resetToken");
+
+  if (!email || !resetToken) {
+    navigate("/");
+  }
+
+  const [newPassword, setNewPassword] = useState(null);
+  const [rePassword, setRePassword] = useState(null);
+
+  const handleChangePassword = async () => {
+    if (newPassword !== rePassword) {
+      await Swal.fire({
+        title: "Error",
+        text: "Mật khẩu và mật khẩu nhập lại không trùng khớp.",
+        timer: 1000,
+        icon: "warning",
+      });
+      return;
+    }
+
+    const response = await apiResetPassword({
+      email,
+      resetToken,
+      password: newPassword,
+      isUser: true,
+    });
+    if (response.status === 204) {
+      await Swal.fire({
+        title: "Thành công",
+        text: "Bạn đã cập nhật thành công",
+        timer: 2000,
+        icon: "success",
+      }),
+        navigate("/dang-nhap");
+    } else {
+      await Swal.fire({
+        title: "Có lỗi xảy ra",
+        text: response.response.data.msg || "Chưa xác định",
+        icon: "error",
+      });
+    }
+  };
   return (
     <div className="h-screen w-screen bg-slate-100">
       <div className="pt-12">
@@ -17,30 +65,35 @@ const ResetPassword = () => {
             <div className="mb-5 w-[100%] space-y-2">
               <label className="">Mật khẩu mới</label>
               <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-                <i class="fa-solid fa-lock p-4 text-blue-700"></i>
+                <i className="fa-solid fa-lock p-4 text-blue-700"></i>
                 <input
                   className="h-full flex-auto pr-2 focus:outline-none"
                   placeholder="Nhập mật khẩu mới"
                   type="password"
+                  onChange={(e) => setNewPassword(e.target.value)}
                 ></input>
               </div>
             </div>
             <div className="mb-5 w-[100%] space-y-2">
               <label className="">Nhập lại mật khẩu</label>
               <div className="flex w-[100%] items-center rounded-md border-[1px] border-gray-300">
-                <i class="fa-solid fa-lock p-4 text-blue-700"></i>
+                <i className="fa-solid fa-lock p-4 text-blue-700"></i>
                 <input
                   className="h-full flex-auto pr-2 focus:outline-none"
                   placeholder="Nhập lại mật khẩu"
                   type="password"
+                  onChange={(e) => setRePassword(e.target.value)}
                 ></input>
               </div>
             </div>
 
             <div className="mb-8 mt-7 flex w-[100%] items-center justify-center rounded-md bg-blue-600 text-white">
-              <Link className="w-full py-3 text-center" to="/reset">
+              <button
+                className="w-full py-3 text-center"
+                onClick={handleChangePassword}
+              >
                 Tạo mật khẩu mới
-              </Link>
+              </button>
             </div>
 
             <div className="mb-5 flex w-[100%] justify-between">
