@@ -1,17 +1,24 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-const JobItem = ({ id, jobName, companyName, salaryMin, salaryMax }) => {
+const JobItem = ({
+  id,
+  jobName,
+  companyName,
+  salaryMin,
+  salaryMax,
+  district,
+}) => {
   const navigate = useNavigate();
   let salaryOutput;
   if (!salaryMax && !salaryMin) {
     salaryOutput = "Thoả thuận";
   } else if (!salaryMax && salaryMin) {
-    salaryOutput = `từ ${salaryMin}`;
+    salaryOutput = `từ ${salaryMin} triệu`;
   } else if (!salaryMin && salaryMax) {
-    salaryOutput = `tối đa ${salaryMax}`;
+    salaryOutput = `tối đa ${salaryMax} triệu`;
   } else {
-    salaryOutput = `từ ${salaryMin} đến ${salaryMax}`;
+    salaryOutput = `từ ${salaryMin} đến ${salaryMax} triệu`;
   }
   return (
     <div
@@ -23,8 +30,15 @@ const JobItem = ({ id, jobName, companyName, salaryMin, salaryMax }) => {
           <span className="line-clamp-1 w-[100%] overflow-hidden text-2xl font-medium">
             {jobName}
           </span>
-          <span className="text-gray-400">{companyName}</span>
-          <span>Lương: {salaryOutput}</span>
+          <span className="line-clamp-1 text-gray-400">{companyName}</span>
+          <div className="flex gap-2">
+            <div className="rounded-lg bg-gray-200 px-2 py-1 font-medium text-[#212F3F]">
+              {salaryOutput}
+            </div>
+            <div className="rounded-lg bg-gray-200 px-2 py-1 font-medium text-[#212F3F]">
+              {district}
+            </div>
+          </div>
         </div>
       </div>
     </div>

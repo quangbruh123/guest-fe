@@ -1,17 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import JobItem from "./JobItem";
 import JobCategories from "./JobCategories";
-import { useEffect, useState } from "react";
 import useFetchData from "../../../utils/useFetchData";
-import { useSelector } from "react-redux";
 import { getStaticData } from "../../../store/staticData";
 import SelectCustom from "../../../Components/Select";
 import Paginator from "../../../Components/Paginator";
 import { apiGetRelatedPost } from "../../../apis/post";
+import RelateJob from "./RelateJob";
+import {
+  getInterestedPostId,
+  getUserCareers,
+} from "../../../store/authReducer";
 
 const Homepage = () => {
   const staticData = useSelector(getStaticData);
+  const interestedCareers = useSelector(getUserCareers);
+  const interestedPostId = useSelector(getInterestedPostId);
   const [searchUrl, setSearchUrl] = useState("/post/filter");
   const [query, setQuery] = useState({});
 
@@ -34,11 +41,16 @@ const Homepage = () => {
     });
   };
 
+  const [relateJob, setRelateJob] = useState([]);
+
   useEffect(() => {
-    const arr = [3];
-    const postId = "80670fbb-d471-4d1b-8749-407b9d84b4bb";
-    const response = apiGetRelatedPost(postId, arr).then((data) => {
+    console.log(interestedCareers);
+    const arr = interestedCareers.map((el) => {
+      return el.id;
+    });
+    const response = apiGetRelatedPost(interestedPostId, arr).then((data) => {
       console.log(data);
+      setRelateJob(data.data);
     });
   }, []);
 
@@ -138,7 +150,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-6 h-[920px] w-[85rem]">
+        <div className="mx-auto mt-6 h-[880px] w-[85rem]">
           <div className="ml-[-15px] mr-[-15px] w-[100%]">
             <div className="flex">
               <div className="w-[70%] pr-2">
@@ -158,6 +170,7 @@ const Homepage = () => {
                           key={el.id}
                           id={el.id}
                           jobName={el.jobTitle}
+                          district={el.Company.district}
                           companyName={el.Company.companyName}
                           salaryMax={el.salaryMax}
                           salaryMin={el.salaryMin}
@@ -297,7 +310,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-3 w-[85rem]">
+        <div className="mx-auto mt-8 w-[85rem]">
           <h2 className="mb-1 text-2xl font-bold leading-7 text-blue-600">
             Các công việc liên quan
           </h2>
@@ -313,53 +326,11 @@ const Homepage = () => {
             </Link>
           </div>
           <div className="ml-[-15px] mr-[-15px] grid w-[100%] grid-cols-12">
-            <JobCategories
-              jobName="CNTT - Phần mềm"
-              careerId={3}
-              icon="fa-solid fa-laptop-code"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Du lịch"
-              careerId={40}
-              icon="fa-solid fa-person-walking-luggage"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Hành chính / Văn phòng"
-              careerId={16}
-              icon="fa-solid fa-briefcase"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Quản lý chất lượng (QA/QC)"
-              careerId={23}
-              icon="fa-solid fa-bug"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Kinh doanh"
-              careerId={30}
-              icon="fa-solid fa-tags"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Giáo dục / Đào tạo"
-              careerId={37}
-              icon="fa-solid fa-graduation-cap"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="CNTT - Phần cứng / Mạng"
-              careerId={43}
-              icon="fa-solid fa-microchip"
-            ></JobCategories>
-
-            <JobCategories
-              jobName="Kế toán / Kiểm toán"
-              careerId={46}
-              icon="fa-solid fa-calculator"
-            ></JobCategories>
+            {relateJob.length != 0
+              ? relateJob.map((el) => {
+                  return <RelateJob></RelateJob>;
+                })
+              : null}
           </div>
         </div>
       </div>

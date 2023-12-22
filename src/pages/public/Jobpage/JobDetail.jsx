@@ -9,8 +9,11 @@ import { dateVN } from "../../../utils/helper";
 import Comment from "./Comment";
 import { apiGetRelatedPost } from "../../../apis/post";
 import { apiGetPostComment, apiCreateComment } from "../../../apis/comment";
+import { setCareers, setInterestedPostId } from "../../../store/authReducer";
+import { useDispatch } from "react-redux";
 
 const JobDetail = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [career, setCareer] = useState([]);
@@ -58,7 +61,11 @@ const JobDetail = () => {
   }, []);
 
   useEffect(() => {
-    setCareer(data?.Careers);
+    if (data?.Careers) {
+      setCareer(data?.Careers);
+      dispatch(setInterestedPostId(id));
+      dispatch(setCareers(data.Careers));
+    }
   }, [data]);
 
   useEffect(() => {
@@ -317,7 +324,6 @@ const JobDetail = () => {
               <div className="">
                 {relatedPost ? (
                   relatedPost?.slice(0, 5).map((el) => {
-                    console.log(el);
                     return (
                       <JobDetailItem
                         jobName={el.jobTitle}
