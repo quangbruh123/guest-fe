@@ -44,7 +44,7 @@ export const {
 
 export default authSlice.reducer;
 
-export const getUsername = (state) => state.auth.userInfo.candidateName;
+export const getUsername = (state) => state.auth.userInfo?.candidateName;
 export const getUserInfo = (state) => state.auth.userInfo;
 export const getUserCareers = (state) => state.auth.career;
 export const getInterestedPostId = (state) => state.auth.interestedPostId;

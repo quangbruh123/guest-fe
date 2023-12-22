@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import LoginImg from "../../assets/login-img.svg";
 import { Link, NavLink } from "react-router-dom";
-
+import isEmail from "../../utils/checkEmail";
+import Swal from "sweetalert2";
+import { apiForgetPassword } from "../../apis/auth";
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const handleClick = async () => {
+    if (!isEmail(email)) {
+      await Swal.fire({
+        title: "Error",
+        text: "Vui lòng nhập đúng mật khẩu",
+        icon: "warning",
+      });
+      return;
+    }
+
+    const response = await apiForgetPassword({ email, isUser: true });
+
+    if (response.status === 200) {
+      await Swal.fire({
+        title: "Thành công",
+        text: "Đã gửi email xác nhận vui lòng kiểm tra, thời hạn 15 phút",
+        icon: "success",
+      });
+    } else {
+      await Swal.fire({
+        title: "Có lỗi xảy ra",
+        text: response.response.data.msg || "Chưa xác định",
+        icon: "error",
+      });
+    }
+  };
   return (
     <div className="flex h-screen w-screen items-center">
       <div className="w-[60%]">
@@ -20,14 +49,15 @@ const ForgotPassword = () => {
               <input
                 className="h-full flex-auto focus:outline-none"
                 placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>
           </div>
 
           <div className="mb-5 flex w-[100%] items-center justify-center rounded-md bg-blue-600 text-white">
-            <Link className="w-full py-3 text-center" to="/reset">
+            <button className="w-full py-3 text-center" onClick={handleClick}>
               Tạo lại mật khẩu
-            </Link>
+            </button>
           </div>
           <div className="mb-5 flex w-[100%] justify-between">
             <NavLink
