@@ -50,7 +50,6 @@ const Navbar = () => {
           <NavLink to="/jobs">Tất cả việc làm</NavLink>
           <NavLink to={"/cong-ty"}>Nhà tuyển dụng</NavLink>
           <NavLink>Giới thiệu</NavLink>
-          <NavLink to="/news">Tin tức</NavLink>
         </div>
         <div className="special flex">
           {username ? (
