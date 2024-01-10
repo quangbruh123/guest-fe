@@ -17,17 +17,21 @@ Trang web phải đảm bảo được các mục tiêu:
 
 # Các công nghệ sử dụng trong project
 - Front-end: ReactJS + ViteJS, Redux Toolkit, Axios
-- Back-end: ExpressJS, Node.js, MySQL
+- Back-end: ExpressJS, Node.js, MySQL, Sequelize
 # Các modules
-- Quản lý cửa hàng (thêm, sửa, xóa thông tin) dành cho người bán:
-  + Người dùng: chỉnh sửa thông tin, thay đổi mật khẩu, ban hành lệnh cấm với người dùng, giải quyết khiếu nại của người dùng.
-  + Đơn hàng: kiểm tra đơn hàng, xóa đơn hàng, chỉnh thông tin đơn hàng.
-  + Sản phẩm: thêm hạng mục sản phẩm, thêm sản phẩm vào cửa hàng, xóa sản phẩm, cập nhật thông tin sản phẩm (giá cả, tình trạng còn hàng).
-- Đặt hàng.
-- Tìm kiếm sản phẩm.
+-	Hiển thị danh sách các bài đăng tuyển dụng.
+-	Hiển thị danh sách các nhà tuyển dụng.
+-	Cho phép người tìm việc ứng tuyển vào bài đăng tuyển dụng.
+-	Tích hợp công cụ tìm kiếm việc làm nhiều tiêu chí: tạo ra công cụ tìm kiếm bài ứng tuyển với nhiều tiêu chí.
+-	Khuyến nghị công việc dựa trên lịch sử tra cứu người dùng.
+
 # Yêu cầu hệ thống
 
 # Cài đặt và sử dụng
 
 # Nguồn tham khảo
+https://vitejs.dev/
 
+https://expressjs.com/
+
+https://sequelize.org/
