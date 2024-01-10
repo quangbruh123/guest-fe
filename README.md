@@ -11,8 +11,8 @@ Trang web phải đảm bảo được các mục tiêu:
 
 | STT| Họ tên           | Email                  |
 |:--:|------------------|------------------------|
-| 1  | Dương Minh Thái  | arituan@gmail.comn     |
-| 2  | Cấn Đức Quang    | 15520728@gm.uit.edu.vn |
+| 1  | Dương Minh Thái  | 20520753@gm.uit.edu.vn |
+| 2  | Cấn Đức Quang    | 20520716@gm.uit.edu.vn |
 
 
 # Các công nghệ sử dụng trong project
